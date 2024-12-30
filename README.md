@@ -1,3 +1,7 @@
+> PyFonts is supported by [Matplotlib Journey](https://www.matplotlib-journey.com/), an interactive online course designed to make you a master of Matplotlib. If you want to **support PyFonts** and **become a Matplotlib expert**, consider purchasing the course!
+
+<br><br>
+
 # PyFonts
 
 <img src="https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true" alt="pyfonts logo" align="right" width="200px"/>
