@@ -73,7 +73,7 @@ def load_font(
             _, ext = os.path.splitext(filename)
             url_hash = hashlib.sha256(font_url.encode()).hexdigest()
             cache_filename = f"{url_hash}{ext}"
-            cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "pyfontloader")
+            cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
             os.makedirs(cache_dir, exist_ok=True)
             cache_path = os.path.join(cache_dir, cache_filename)
 
@@ -92,7 +92,7 @@ def load_font(
             content = response.read()
 
             temp_file = NamedTemporaryFile(
-                dir=cache_dir if use_cache else None, delete=False
+                dir=cache_dir if use_cache else None, delete=os.name == "nt"
             )
             temp_path = temp_file.name
             try:
@@ -110,7 +110,7 @@ def load_font(
                     os.remove(temp_path)
                 raise
             finally:
-                if os.path.exists(temp_path) and use_cache:
+                if os.path.exists(temp_path) and use_cache and not os.name == "nt":
                     os.remove(temp_path)
 
             return FontProperties(fname=cache_path)
@@ -134,7 +134,7 @@ def clear_pyfonts_cache() -> None:
     """
     Cleans the entire font cache directory by deleting all cached font files.
     """
-    cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "pyfontloader")
+    cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
     if os.path.exists(cache_dir):
         shutil.rmtree(cache_dir)
         print(f"Font cache cleaned: {cache_dir}")

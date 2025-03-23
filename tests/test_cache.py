@@ -13,6 +13,4 @@ def test_print_message_is_valid(capsys):
     # clean twice the cache leads to a different message
     clear_pyfonts_cache()
     captured = capsys.readouterr()
-    assert captured.out.strip().startswith(
-        "No font cache directory found. Nothing to clean."
-    )
+    assert captured.out.strip() == "No font cache directory found. Nothing to clean."
