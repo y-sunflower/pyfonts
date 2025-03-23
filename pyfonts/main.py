@@ -95,8 +95,9 @@ def load_font(
                 dir=cache_dir if use_cache else None, delete=False
             )
             temp_path = temp_file.name
+            temp_file.close()
             try:
-                with open(temp_path, "w") as f:
+                with open(temp_path, "wb") as f:
                     f.write(content)
                 font_prop = FontProperties(fname=temp_path)
                 font_prop.get_name()
