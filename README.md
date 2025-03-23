@@ -8,6 +8,8 @@
 
 A simple (and reproducible) way to load fonts for `matplotlib`.
 
+The aim of `pyfonts` is to do one thing, but to do it well.
+
 Check out [the online documentation](https://python-graph-gallery.com/pyfonts/).
 
 <br><br>
