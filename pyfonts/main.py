@@ -127,8 +127,7 @@ def load_font(
                 " or an environment where local files are not accessible."
             )
         finally:
-            if os.path.exists(temp_path):
-                os.remove(temp_path)
+            pass
     else:
         raise ValueError("You must provide a `font_url`.")
 

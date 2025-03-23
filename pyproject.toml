@@ -14,7 +14,8 @@ classifiers = [
     "Framework :: Matplotlib"
 ]
 dependencies = [
-  "matplotlib"
+  "matplotlib",
+  "requests>=2.32.3",
 ]
 
 [build-system]
