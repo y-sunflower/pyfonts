@@ -106,10 +106,10 @@ def load_font(
                 else:
                     return FontProperties(fname=temp_path)
             except Exception:
-                if os.path.exists(temp_path) and not os.name == "nt":
+                if os.path.exists(temp_path):
                     os.remove(temp_path)
             finally:
-                if os.path.exists(temp_path) and use_cache and not os.name == "nt":
+                if os.path.exists(temp_path) and use_cache:
                     os.remove(temp_path)
 
             return FontProperties(fname=cache_path)
@@ -126,7 +126,7 @@ def load_font(
                 " or an environment where local files are not accessible."
             )
         finally:
-            if os.path.exists(temp_path) and not os.name == "nt":
+            if os.path.exists(temp_path):
                 os.remove(temp_path)
     else:
         raise ValueError("You must provide a `font_url`.")
@@ -138,7 +138,14 @@ def clear_pyfonts_cache() -> None:
     """
     cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
     if os.path.exists(cache_dir):
-        shutil.rmtree(cache_dir)
-        print(f"Font cache cleaned: {cache_dir}")
+        if os.name == "nt":
+            raise OSError(
+                "On a Windows machine, you need to remove the font cache yourself."
+                f" You can find it here: {cache_dir}."
+                " To avoid using the cache, set `use_cache=True`"
+            )
+        else:
+            shutil.rmtree(cache_dir)
+            print(f"Font cache cleaned: {cache_dir}")
     else:
         print("No font cache directory found. Nothing to clean.")
