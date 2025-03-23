@@ -5,7 +5,7 @@ from pyfonts import load_font
 
 def test_load_font_with_url():
     font = load_font(
-        font_url="https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
+        "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
     )
     assert isinstance(font, FontProperties)
 
