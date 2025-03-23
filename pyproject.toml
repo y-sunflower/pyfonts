@@ -21,6 +21,12 @@ dependencies = [
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+[dependency-groups]
+dev = [
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+]
+
 [project.urls]
 Homepage = "https://github.com/JosephBARBIERDARNAL/pyfonts"
 Issues = "https://github.com/JosephBARBIERDARNAL/pyfonts/issues"

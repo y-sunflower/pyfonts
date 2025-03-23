@@ -45,7 +45,8 @@ def _get_font_from_url(font_location: str) -> FontProperties:
 
         except URLError:
             raise Exception(
-                "Failed to load font. This may be due to a lack of internet connection."
+                "Failed to load font. This may be due to a lack of internet connection"
+                " or an environment where local files are not accessible."
             )
 
         font = FontProperties(fname=temp_file.name)
