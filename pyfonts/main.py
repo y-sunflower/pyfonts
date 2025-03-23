@@ -92,7 +92,7 @@ def load_font(
             content = response.read()
 
             temp_file = NamedTemporaryFile(
-                dir=cache_dir if use_cache else None, delete=os.name == "nt"
+                dir=cache_dir if use_cache else None, delete=False
             )
             temp_path = temp_file.name
             try:
@@ -126,6 +126,9 @@ def load_font(
                 "Failed to load font. This may be due to a lack of internet connection"
                 " or an environment where local files are not accessible."
             )
+        finally:
+            if os.path.exists(temp_path) and not os.name == "nt":
+                os.remove(temp_path)
     else:
         raise ValueError("You must provide a `font_url`.")
 
