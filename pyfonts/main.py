@@ -96,22 +96,19 @@ def load_font(
             )
             temp_path = temp_file.name
             temp_file.close()
-            try:
-                with open(temp_path, "wb") as f:
-                    f.write(content)
-                font_prop = FontProperties(fname=temp_path)
-                font_prop.get_name()
-                # If cache is enabled, move to cache
-                if use_cache:
-                    os.replace(temp_path, cache_path)
-                else:
-                    return FontProperties(fname=temp_path)
-            except Exception:
-                if os.path.exists(temp_path):
-                    os.remove(temp_path)
-            finally:
-                if os.path.exists(temp_path) and use_cache:
-                    os.remove(temp_path)
+
+            with open(temp_path, "wb") as f:
+                f.write(content)
+            font_prop = FontProperties(fname=temp_path)
+            font_prop.get_name()
+            # If cache is enabled, move to cache
+            if use_cache:
+                os.replace(temp_path, cache_path)
+            else:
+                return FontProperties(fname=temp_path)
+
+            if os.path.exists(temp_path) and use_cache and not os.name == "nt":
+                os.remove(temp_path)
 
             return FontProperties(fname=cache_path)
         except HTTPError as e:
@@ -127,7 +124,8 @@ def load_font(
                 " or an environment where local files are not accessible."
             )
         finally:
-            pass
+            if os.path.exists(temp_path) and not os.name == "nt":
+                os.remove(temp_path)
     else:
         raise ValueError("You must provide a `font_url`.")
 

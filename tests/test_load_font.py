@@ -9,6 +9,12 @@ def test_load_font_with_url():
     )
     assert isinstance(font, FontProperties)
 
+    font = load_font(
+        "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true",
+        use_cache=False,
+    )
+    assert isinstance(font, FontProperties)
+
 
 def test_load_font_with_path():
     font = load_font("tests/Ultra-Regular.ttf")
