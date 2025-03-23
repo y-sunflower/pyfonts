@@ -33,7 +33,7 @@ from pyfonts import load_font
 import matplotlib.pyplot as plt
 
 font = load_font(
-    font_url="https://github.com/google/fonts/raw/main/apache/ultra/Ultra-Regular.ttf"
+    "https://github.com/google/fonts/raw/main/apache/ultra/Ultra-Regular.ttf"
 )
 
 fig, ax = plt.subplots(figsize=(10, 6))
