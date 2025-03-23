@@ -105,10 +105,9 @@ def load_font(
                     os.replace(temp_path, cache_path)
                 else:
                     return FontProperties(fname=temp_path)
-            except:
-                if os.path.exists(temp_path):
+            except Exception:
+                if os.path.exists(temp_path) and not os.name == "nt":
                     os.remove(temp_path)
-                raise
             finally:
                 if os.path.exists(temp_path) and use_cache and not os.name == "nt":
                     os.remove(temp_path)
