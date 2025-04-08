@@ -92,11 +92,7 @@ def load_font(
                 f.write(content)
             font_prop = FontProperties(fname=temp_path)
             font_prop.get_name()
-            # If cache is enabled, move to cache
-            if use_cache:
-                os.replace(temp_path, cached_fontfile)
-            else:
-                return FontProperties(fname=temp_path)
+            return FontProperties(fname=temp_path)
 
             if os.path.exists(temp_path) and use_cache:
                 # os.remove(temp_path)
