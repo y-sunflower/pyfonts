@@ -54,7 +54,7 @@ def test_is_valid_raw_url(url, expected):
 
 
 def test_is_valid_raw_url_with_empty_string():
-    assert _is_valid_raw_url("") == False
+    assert not _is_valid_raw_url("")
 
 
 def test_is_valid_raw_url_with_none():

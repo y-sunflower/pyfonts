@@ -6,7 +6,7 @@
 
 <img src="https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true" alt="pyfonts logo" align="right" width="200px"/>
 
-A simple (and reproducible) way to load fonts for `matplotlib`.
+A simple and reproducible way of using fonts in `matplotlib`.
 
 Check out [the online documentation](https://python-graph-gallery.com/pyfonts/).
 
@@ -33,7 +33,7 @@ from pyfonts import load_font
 import matplotlib.pyplot as plt
 
 font = load_font(
-    font_url="https://github.com/google/fonts/raw/main/apache/ultra/Ultra-Regular.ttf"
+    "https://github.com/google/fonts/raw/main/apache/ultra/Ultra-Regular.ttf"
 )
 
 fig, ax = plt.subplots(figsize=(10, 6))

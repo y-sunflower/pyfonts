@@ -1,26 +1,38 @@
 [project]
 name = "pyfonts"
-version = "0.0.2"
+description = "A simple and reproducible way of using fonts in matplotlib"
+version = "0.3.0"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["matplotlib", "font", "reproducibility"]
 authors = [
   { name="Joseph Barbier", email="joseph.barbierdarnal@gmail.com" },
 ]
-description = "A simple way to load fonts for matplotlib"
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Framework :: Matplotlib"
+    "Framework :: Matplotlib",
+    "Development Status :: 5 - Production/Stable"
 ]
 dependencies = [
-  "matplotlib"
+  "matplotlib",
+  "requests",
 ]
 
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+]
 
 [project.urls]
 Homepage = "https://github.com/JosephBARBIERDARNAL/pyfonts"
 Issues = "https://github.com/JosephBARBIERDARNAL/pyfonts/issues"
+Documentation = "https://python-graph-gallery.com/pyfonts/"
+Repository = "https://github.com/JosephBARBIERDARNAL/pyfonts"
