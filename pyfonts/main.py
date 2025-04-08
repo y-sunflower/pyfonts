@@ -1,13 +1,13 @@
-from urllib.request import urlopen
-from urllib.error import URLError, HTTPError
-from matplotlib.font_manager import FontProperties
 from urllib.parse import urlparse
 from typing import Optional
 import os
 import shutil
 import hashlib
 import warnings
-import tempfile
+
+from urllib.request import urlopen
+from urllib.error import URLError, HTTPError
+from matplotlib.font_manager import FontProperties
 
 from .is_valid import _is_url, _is_valid_raw_url
 
@@ -65,9 +65,8 @@ def load_font(
                 """
             )
 
+        cached_fontfile, cache_dir = _create_cache_from_fontfile(font_url=font_url)
         if use_cache:
-            cached_fontfile, cache_dir = _create_cache_from_fontfile(font_url=font_url)
-
             # check if file is in cache
             if os.path.exists(cached_fontfile):
                 try:
@@ -80,15 +79,12 @@ def load_font(
 
         try:
             response = urlopen(font_url)
-            fd, fname = tempfile.mkstemp()
-            with open(fname, "wb") as ff:
-                ff.write(response.read())
+            content = response.read()
 
-            font_prop = FontProperties(fname=fname)
-            font_prop.get_name()
-            os.close(fd)
-            os.remove(fname)
-            return font_prop
+            with open(cached_fontfile, "wb") as f:
+                f.write(content)
+
+            return FontProperties(fname=cached_fontfile)
 
             return FontProperties(fname=cached_fontfile)
         except HTTPError as e:
@@ -103,9 +99,6 @@ def load_font(
                 "Failed to load font. This may be due to a lack of internet connection"
                 " or an environment where local files are not accessible (Pyodide, etc)."
             )
-        # finally:
-        #     if os.path.exists(fname):
-        #         os.remove(fname)
     else:
         raise ValueError("You must provide a `font_url`.")
 
@@ -137,3 +130,10 @@ def _create_cache_from_fontfile(font_url):
 
 def _get_cache_dir() -> str:
     return os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
+
+
+if __name__ == "__main__":
+    font = load_font(
+        "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
+    )
+    print(font)
