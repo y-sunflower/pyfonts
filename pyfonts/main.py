@@ -103,9 +103,9 @@ def load_font(
                 "Failed to load font. This may be due to a lack of internet connection"
                 " or an environment where local files are not accessible (Pyodide, etc)."
             )
-        finally:
-            if os.path.exists(fname):
-                os.remove(fname)
+        # finally:
+        #     if os.path.exists(fname):
+        #         os.remove(fname)
     else:
         raise ValueError("You must provide a `font_url`.")
 
