@@ -66,26 +66,17 @@ def load_font(
             )
 
         if use_cache:
-            # generate cache path
-            parsed_url = urlparse(font_url)
-            url_path = parsed_url.path
-            filename = os.path.basename(url_path)
-            _, ext = os.path.splitext(filename)
-            url_hash = hashlib.sha256(font_url.encode()).hexdigest()
-            cache_filename = f"{url_hash}{ext}"
-            cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
-            os.makedirs(cache_dir, exist_ok=True)
-            cache_path = os.path.join(cache_dir, cache_filename)
+            cached_fontfile, cache_dir = _create_cache_from_fontfile(font_url=font_url)
 
-            # check cache
-            if os.path.exists(cache_path):
+            # check if file is in cache
+            if os.path.exists(cached_fontfile):
                 try:
-                    font_prop = FontProperties(fname=cache_path)
-                    font_prop.get_name()
+                    font_prop = FontProperties(fname=cached_fontfile)
+                    font_prop.get_name()  # triggers error if invalid
                     return font_prop
                 except Exception:
                     # cached file is invalid, remove and proceed to download
-                    os.remove(cache_path)
+                    os.remove(cached_fontfile)
 
         try:
             response = urlopen(font_url)
@@ -103,14 +94,15 @@ def load_font(
             font_prop.get_name()
             # If cache is enabled, move to cache
             if use_cache:
-                os.replace(temp_path, cache_path)
+                os.replace(temp_path, cached_fontfile)
             else:
                 return FontProperties(fname=temp_path)
 
             if os.path.exists(temp_path) and use_cache:
-                os.remove(temp_path)
+                # os.remove(temp_path)
+                pass
 
-            return FontProperties(fname=cache_path)
+            return FontProperties(fname=cached_fontfile)
         except HTTPError as e:
             if e.code == 404:
                 raise Exception(
@@ -121,11 +113,12 @@ def load_font(
         except URLError:
             raise Exception(
                 "Failed to load font. This may be due to a lack of internet connection"
-                " or an environment where local files are not accessible."
+                " or an environment where local files are not accessible (Pyodide, etc)."
             )
         finally:
             if os.path.exists(temp_path):
-                os.remove(temp_path)
+                # os.remove(temp_path)
+                pass
     else:
         raise ValueError("You must provide a `font_url`.")
 
@@ -134,9 +127,26 @@ def clear_pyfonts_cache() -> None:
     """
     Cleans the entire font cache directory by deleting all cached font files.
     """
-    cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
+    cache_dir = _get_cache_dir()
     if os.path.exists(cache_dir):
         shutil.rmtree(cache_dir)
         print(f"Font cache cleaned: {cache_dir}")
     else:
         print("No font cache directory found. Nothing to clean.")
+
+
+def _create_cache_from_fontfile(font_url):
+    parsed_url = urlparse(font_url)
+    url_path = parsed_url.path
+    filename = os.path.basename(url_path)
+    _, ext = os.path.splitext(filename)
+    url_hash = hashlib.sha256(font_url.encode()).hexdigest()
+    cache_filename = f"{url_hash}{ext}"
+    cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
+    os.makedirs(cache_dir, exist_ok=True)
+    cached_fontfile = os.path.join(cache_dir, cache_filename)
+    return cached_fontfile, cache_dir
+
+
+def _get_cache_dir() -> str:
+    return os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")

@@ -1,16 +1,14 @@
 from .main import load_font
 import matplotlib.pyplot as plt
-from typing import Optional
 
 
 def preview_font(
-    font_url: Optional[str] = None,
-    font_path: Optional[str] = None,
+    font_url: str,
 ):
     """
     Preview a font.
     """
-    font = load_font(font_url, font_path)
+    font = load_font(font_url)
 
     plt.figure(figsize=(10, 5))
     plt.text(

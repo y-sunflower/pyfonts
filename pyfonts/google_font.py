@@ -1,7 +1,7 @@
 import requests
 
 
-def load_font_from_google():
+def _load_font_from_google():
     url = "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBkOYsZREsyZWvbSR_d03SI5XX30cIapYo&sort=popularity"
 
     response = requests.get(url)
@@ -14,4 +14,4 @@ def load_font_from_google():
 
 
 if __name__ == "__main__":
-    load_font_from_google()
+    _load_font_from_google()
