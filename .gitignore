@@ -6,3 +6,4 @@ pyfonts.egg-info/
 sandbox.ipynb
 .ruff_cache/
 .pytest_cache/
+*cache*
