@@ -44,3 +44,9 @@ def test_load_font_warning():
 def test_load_font_no_input():
     with pytest.raises(ValueError, match="You must provide a `font_url`."):
         load_font()
+
+
+def test_pyfonts_version():
+    import pyfonts
+
+    assert pyfonts.__version__ == "0.3.0"

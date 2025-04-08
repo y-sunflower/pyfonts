@@ -103,16 +103,18 @@ def load_font(
         raise ValueError("You must provide a `font_url`.")
 
 
-def clear_pyfonts_cache() -> None:
+def clear_pyfonts_cache(verbose: bool = True) -> None:
     """
     Cleans the entire font cache directory by deleting all cached font files.
     """
     cache_dir = _get_cache_dir()
     if os.path.exists(cache_dir):
         shutil.rmtree(cache_dir)
-        print(f"Font cache cleaned: {cache_dir}")
+        if verbose:
+            print(f"Font cache cleaned: {cache_dir}")
     else:
-        print("No font cache directory found. Nothing to clean.")
+        if verbose:
+            print("No font cache directory found. Nothing to clean.")
 
 
 def _create_cache_from_fontfile(font_url):

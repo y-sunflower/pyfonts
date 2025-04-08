@@ -2,7 +2,7 @@ import time
 from pyfonts import load_font, clear_pyfonts_cache
 
 
-def benchmark(use_cache: bool, n_times: int = 20):
+def benchmark(use_cache: bool, n_times: int = 5) -> float:
     clear_pyfonts_cache(verbose=False)
     print(f"Loading {n_times} font files:")
     start = time.perf_counter()
@@ -14,10 +14,13 @@ def benchmark(use_cache: bool, n_times: int = 20):
         )
 
     end = time.perf_counter()
+    elapsed = end - start
     print(
-        f"Execution time: {end - start:.4f} seconds {'(using cache)' if use_cache else '(not using cache)'}\n"
+        f"Execution time: {elapsed:.2f} seconds {'(using cache)' if use_cache else '(not using cache)'}\n"
     )
+    return elapsed
 
 
-for cache_option in [True, False]:
-    benchmark(use_cache=cache_option)
+for use_cache in [False, True]:
+    clear_pyfonts_cache(verbose=False)
+    benchmark(use_cache=use_cache)
