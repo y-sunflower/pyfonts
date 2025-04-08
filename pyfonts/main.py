@@ -1,6 +1,5 @@
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
-from tempfile import NamedTemporaryFile
 from matplotlib.font_manager import FontProperties
 from urllib.parse import urlparse
 from typing import Optional
@@ -8,6 +7,7 @@ import os
 import shutil
 import hashlib
 import warnings
+import tempfile
 
 from .is_valid import _is_url, _is_valid_raw_url
 
@@ -80,23 +80,15 @@ def load_font(
 
         try:
             response = urlopen(font_url)
-            content = response.read()
+            fd, fname = tempfile.mkstemp()
+            with open(fname, "wb") as ff:
+                ff.write(response.read())
 
-            temp_file = NamedTemporaryFile(
-                dir=cache_dir if use_cache else None, delete=False
-            )
-            temp_path = temp_file.name
-            temp_file.close()
-
-            with open(temp_path, "wb") as f:
-                f.write(content)
-            font_prop = FontProperties(fname=temp_path)
+            font_prop = FontProperties(fname=fname)
             font_prop.get_name()
-            return FontProperties(fname=temp_path)
-
-            if os.path.exists(temp_path) and use_cache:
-                # os.remove(temp_path)
-                pass
+            os.close(fd)
+            os.remove(fname)
+            return font_prop
 
             return FontProperties(fname=cached_fontfile)
         except HTTPError as e:
@@ -112,9 +104,8 @@ def load_font(
                 " or an environment where local files are not accessible (Pyodide, etc)."
             )
         finally:
-            if os.path.exists(temp_path):
-                # os.remove(temp_path)
-                pass
+            if os.path.exists(fname):
+                os.remove(fname)
     else:
         raise ValueError("You must provide a `font_url`.")
 
