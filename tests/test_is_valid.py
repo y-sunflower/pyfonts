@@ -35,22 +35,21 @@ def test_is_url_type_error():
             "https://raw.githubusercontent.com/user/repo/branch-name/subfolder/font.woff2",
             True,
         ),
-        ("https://github.com/user/repo/blob/master/font.ttf", False),
+        ("https://github.com/user/repo/blob/master/font.ttf", True),
         ("https://github.com/user/repo/raw/master/font.txt", False),
         ("https://raw.githubusercontent.com/user/repo/master/font.exe", False),
-        ("https://example.com/font.ttf", False),
-        ("https://github.com/user/repo/tree/master/fonts/font.ttf", False),
-        ("https://github.com/user/repo/blob/master/font.ttf?raw=false", False),
+        ("https://example.com/font.ttf", True),
+        ("https://github.com/user/repo/tree/master/fonts/font.ttf", True),
         (
             "https://github.com/user/repo/blob/master/font.ttf?raw=true&param=value",
-            False,
+            True,
         ),
-        ("https://github.com/user/repo/raw/master/font.WOFF", False),
-        ("https://raw.githubusercontent.com/user/repo/master/font.ttf?raw=true", False),
+        ("https://github.com/user/repo/raw/master/font.woff", True),
+        ("https://raw.githubusercontent.com/user/repo/master/font.ttf?raw=true", True),
     ],
 )
 def test_is_valid_raw_url(url, expected):
-    assert _is_valid_raw_url(url) == expected
+    assert _is_valid_raw_url(url) == expected, f"{url}"
 
 
 def test_is_valid_raw_url_with_empty_string():

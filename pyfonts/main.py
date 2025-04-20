@@ -1,8 +1,5 @@
-from urllib.parse import urlparse
 from typing import Optional
 import os
-import shutil
-import hashlib
 import warnings
 
 from urllib.request import urlopen
@@ -10,6 +7,7 @@ from urllib.error import URLError, HTTPError
 from matplotlib.font_manager import FontProperties
 
 from .is_valid import _is_url, _is_valid_raw_url
+from .cache import _create_cache_from_fontfile
 
 
 def load_font(
@@ -21,6 +19,7 @@ def load_font(
     Loads a FontProperties object from a remote Github repo or a local file.
 
     Parameters:
+
     - font_url: It may be one of the following:
         - A URL pointing to a binary font file from Github.
         - The local file path of the font.
@@ -28,6 +27,7 @@ def load_font(
     - font_path: (deprecated) The local file path of the font. Use font_url instead.
 
     Returns:
+
     - matplotlib.font_manager.FontProperties: A FontProperties object containing the loaded font.
 
     Raises:
@@ -99,41 +99,3 @@ def load_font(
             )
     else:
         raise ValueError("You must provide a `font_url`.")
-
-
-def clear_pyfonts_cache(verbose: bool = True) -> None:
-    """
-    Cleans the entire font cache directory by deleting all cached font files.
-    """
-    cache_dir = _get_cache_dir()
-    if os.path.exists(cache_dir):
-        shutil.rmtree(cache_dir)
-        if verbose:
-            print(f"Font cache cleaned: {cache_dir}")
-    else:
-        if verbose:
-            print("No font cache directory found. Nothing to clean.")
-
-
-def _create_cache_from_fontfile(font_url):
-    parsed_url = urlparse(font_url)
-    url_path = parsed_url.path
-    filename = os.path.basename(url_path)
-    _, ext = os.path.splitext(filename)
-    url_hash = hashlib.sha256(font_url.encode()).hexdigest()
-    cache_filename = f"{url_hash}{ext}"
-    cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
-    os.makedirs(cache_dir, exist_ok=True)
-    cached_fontfile = os.path.join(cache_dir, cache_filename)
-    return cached_fontfile, cache_dir
-
-
-def _get_cache_dir() -> str:
-    return os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
-
-
-if __name__ == "__main__":
-    font = load_font(
-        "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
-    )
-    print(font)

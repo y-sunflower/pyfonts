@@ -18,26 +18,14 @@ def _is_url(s: str) -> bool:
 
 def _is_valid_raw_url(url: str) -> bool:
     """
-    Tests whether an url from Github pointing to a font
-    is actually a raw url (e.g pointing to the binary font file and not the Github view).
-
-    There are 3 ways/patterns to point to the raw version of a file from Github that are defined
-    in `patterns`.
+    Tests whether a given URL points to a font file by checking for common
+    font file extensions, regardless of the domain.
 
     Parameters:
        - url: the url of the font file.
 
     Returns:
-       - a boolean indicating whether the url corresponds to a raw file.
+       - a boolean indicating whether the url likely corresponds to a raw font file.
     """
-    patterns = [
-        r"^https://github\.com/[^/]+/[^/]+/blob/[^/]+/.+\.(ttf|otf|woff|woff2)\?raw=true$",
-        r"^https://github\.com/[^/]+/[^/]+/raw/[^/]+/.+\.(ttf|otf|woff|woff2)$",
-        r"^https://raw\.githubusercontent\.com/[^/]+/[^/]+/[^/]+/.+\.(ttf|otf|woff|woff2)$",
-    ]
-
-    for pattern in patterns:
-        if re.match(pattern, url):
-            return True
-
-    return False
+    pattern = r".+\.(ttf|otf|woff|woff2)(\?.*)?$"
+    return re.match(pattern, url, re.IGNORECASE) is not None
