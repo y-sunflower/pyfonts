@@ -85,8 +85,6 @@ def load_font(
                 f.write(content)
 
             return FontProperties(fname=cached_fontfile)
-
-            return FontProperties(fname=cached_fontfile)
         except HTTPError as e:
             if e.code == 404:
                 raise Exception(
