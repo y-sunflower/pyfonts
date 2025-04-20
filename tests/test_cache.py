@@ -24,9 +24,10 @@ def test_cache_time():
     start = time.time()
 
     for _ in range(10):
-        _ = load_font(
+        font = load_font(
             "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
         )
+        del font
 
     end = time.time()
     duration_with_cache = end - start
@@ -36,10 +37,11 @@ def test_cache_time():
     start = time.time()
 
     for _ in range(10):
-        _ = load_font(
+        font = load_font(
             "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true",
             use_cache=False,
         )
+        del font
 
     end = time.time()
     duration_without_cache = end - start
