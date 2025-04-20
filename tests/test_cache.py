@@ -1,5 +1,7 @@
 from pyfonts import load_font, clear_pyfonts_cache
 import time
+import pytest
+import platform
 
 
 def test_print_message_is_valid(capsys):
@@ -18,6 +20,9 @@ def test_print_message_is_valid(capsys):
     assert captured.out.strip() == "No font cache directory found. Nothing to clean."
 
 
+@pytest.mark.skipif(
+    platform.system() == "Windows", reason="This test does not run on Windows."
+)
 def test_cache_time():
     clear_pyfonts_cache()
 
