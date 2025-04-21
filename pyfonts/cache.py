@@ -12,6 +12,15 @@ def clear_pyfonts_cache(verbose: bool = True) -> None:
     ---
 
     - `verbose`: Whether or not to print a cache cleanup message. The default value is True.
+
+    Usage
+    ---
+
+    ```py
+    from pyfonts import clear_pyfonts_cache
+
+    clear_pyfonts_cache()
+    ```
     """
     cache_dir = _get_cache_dir()
     if os.path.exists(cache_dir):
