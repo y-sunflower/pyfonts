@@ -1,0 +1,57 @@
+site_name: pyfonts
+site_url: https://josephbarbierdarnal.github.io/pyfonts/
+repo_url: https://github.com/JosephBARBIERDARNAL/pyfonts
+
+theme:
+  name: material
+  custom_dir: overrides
+  features:
+    - content.code.copy
+    - navigation.path
+    - navigation.tabs
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - mkdocs_matplotlib
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          options:
+            show_source: false
+            show_root_heading: true
+            heading_level: 3
+
+nav:
+  - Home: index.md
+  - Reference:
+      - reference/load_font.md
+      - reference/load_google_font.md
+      - reference/cache.md
+  - Contributing: contributing.md
+
+extra_css:
+  - stylesheets/style.css
+
+markdown_extensions:
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - admonition
+  - pymdownx.details
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde

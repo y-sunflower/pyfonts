@@ -7,3 +7,7 @@ sandbox.ipynb
 .ruff_cache/
 .pytest_cache/
 *cache*
+!cache.py
+!cache.md
+sandbox.*
+uv.lock

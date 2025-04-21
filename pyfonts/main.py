@@ -1,8 +1,5 @@
-from urllib.parse import urlparse
 from typing import Optional
 import os
-import shutil
-import hashlib
 import warnings
 
 from urllib.request import urlopen
@@ -10,6 +7,7 @@ from urllib.error import URLError, HTTPError
 from matplotlib.font_manager import FontProperties
 
 from .is_valid import _is_url, _is_valid_raw_url
+from .cache import _create_cache_from_fontfile
 
 
 def load_font(
@@ -18,22 +16,42 @@ def load_font(
     font_path: Optional[str] = None,
 ) -> FontProperties:
     """
-    Loads a FontProperties object from a remote Github repo or a local file.
+    Loads a matplotlib `FontProperties` object from a remote url or a local file,
+    that you can then use in your matplotlib charts.
 
-    Parameters:
-    - font_url: It may be one of the following:
-        - A URL pointing to a binary font file from Github.
+    This function is most useful when the foot you are looking for is stored locally
+    or is not available in Google Fonts. Otherwise, it's easier to use the
+    [`load_google_font()`](../load_google_font) function instead.
+
+    If the url points to a font file on Github, add `?raw=true` at the end of the
+    url (see examples below).
+
+    Parameters
+    ---
+
+    - `font_url`: It may be one of the following:
+        - A URL pointing to a binary font file.
         - The local file path of the font.
-    - use_cache: Whether or not to cache fonts.
-    - font_path: (deprecated) The local file path of the font. Use font_url instead.
 
-    Returns:
-    - matplotlib.font_manager.FontProperties: A FontProperties object containing the loaded font.
+    - `use_cache`: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
 
-    Raises:
-    - ValueError: If both font_url and font_path are None or if the URL is invalid
-    - FileNotFoundError: If the local font file cannot be found
-    - Exception: For various URL or font loading errors
+    - `font_path`: (deprecated) The local file path of the font. Use `font_url` instead.
+
+    Returns
+    ---
+
+    - `matplotlib.font_manager.FontProperties`: A `FontProperties` object containing the loaded font.
+
+    Usage
+    ---
+
+    ```py
+    from pyfonts import load_font
+
+    font = load_font(
+        "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
+    )
+    ```
     """
     if font_path is not None:
         warnings.warn(
@@ -85,8 +103,6 @@ def load_font(
                 f.write(content)
 
             return FontProperties(fname=cached_fontfile)
-
-            return FontProperties(fname=cached_fontfile)
         except HTTPError as e:
             if e.code == 404:
                 raise Exception(
@@ -101,41 +117,3 @@ def load_font(
             )
     else:
         raise ValueError("You must provide a `font_url`.")
-
-
-def clear_pyfonts_cache(verbose: bool = True) -> None:
-    """
-    Cleans the entire font cache directory by deleting all cached font files.
-    """
-    cache_dir = _get_cache_dir()
-    if os.path.exists(cache_dir):
-        shutil.rmtree(cache_dir)
-        if verbose:
-            print(f"Font cache cleaned: {cache_dir}")
-    else:
-        if verbose:
-            print("No font cache directory found. Nothing to clean.")
-
-
-def _create_cache_from_fontfile(font_url):
-    parsed_url = urlparse(font_url)
-    url_path = parsed_url.path
-    filename = os.path.basename(url_path)
-    _, ext = os.path.splitext(filename)
-    url_hash = hashlib.sha256(font_url.encode()).hexdigest()
-    cache_filename = f"{url_hash}{ext}"
-    cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
-    os.makedirs(cache_dir, exist_ok=True)
-    cached_fontfile = os.path.join(cache_dir, cache_filename)
-    return cached_fontfile, cache_dir
-
-
-def _get_cache_dir() -> str:
-    return os.path.join(os.path.expanduser("~"), ".cache", "pyfontsloader")
-
-
-if __name__ == "__main__":
-    font = load_font(
-        "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
-    )
-    print(font)

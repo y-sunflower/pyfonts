@@ -11,6 +11,7 @@ A **simple** and **reproducible** way of using fonts in matplotlib.
 ## Quick start
 
 ```py
+# mkdocs: render
 import matplotlib.pyplot as plt
 from pyfonts import load_google_font
 
@@ -26,14 +27,20 @@ ax.text(
 )
 ```
 
-![](https://raw.githubusercontent.com/JosephBARBIERDARNAL/dayplot/refs/heads/main/quickstart.png)
-
-[**See more examples**](https://josephbarbierdarnal.github.io/pyfonts/reference/load_google_font#examples)
+[**See more examples**](./reference/load_google_font#examples)
 
 ## Installation
 
-```bash
-pip install pyfonts
-```
+=== "stable"
+
+    ```bash
+    pip install pyfonts
+    ```
+
+=== "dev"
+
+    ```bash
+    pip install git+https://github.com/JosephBARBIERDARNAL/pyfonts.git
+    ```
 
 <br><br>

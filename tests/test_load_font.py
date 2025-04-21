@@ -49,4 +49,4 @@ def test_load_font_no_input():
 def test_pyfonts_version():
     import pyfonts
 
-    assert pyfonts.__version__ == "0.3.0"
+    assert pyfonts.__version__ == "1.0.0"
