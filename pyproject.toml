@@ -29,10 +29,13 @@ build-backend = "hatchling.build"
 dev = [
     "pre-commit>=4.2.0",
     "pytest>=8.3.5",
+    "mkdocs-material>=9.6.9",
+    "mkdocs-matplotlib>=0.10.1",
+    "mkdocstrings-python>=1.16.5",
 ]
 
 [project.urls]
-Homepage = "https://github.com/JosephBARBIERDARNAL/pyfonts"
+Homepage = "https://josephbarbierdarnal.github.io/pyfonts/"
 Issues = "https://github.com/JosephBARBIERDARNAL/pyfonts/issues"
-Documentation = "https://python-graph-gallery.com/pyfonts/"
+Documentation = "https://josephbarbierdarnal.github.io/pyfonts/"
 Repository = "https://github.com/JosephBARBIERDARNAL/pyfonts"

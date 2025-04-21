@@ -8,3 +8,4 @@ sandbox.ipynb
 .pytest_cache/
 *cache*
 !cache.py
+!cache.md

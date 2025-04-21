@@ -7,6 +7,11 @@ from urllib.parse import urlparse
 def clear_pyfonts_cache(verbose: bool = True) -> None:
     """
     Cleans the entire font cache directory by deleting all cached font files.
+
+    Parameters
+    ---
+
+    - `verbose`: Whether or not to print a cache cleanup message. The default value is True.
     """
     cache_dir = _get_cache_dir()
     if os.path.exists(cache_dir):

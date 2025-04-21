@@ -56,8 +56,8 @@ def _get_fonturl_from_google(
         RuntimeError: If the stylesheet or font URL could not be retrieved or parsed.
     """
 
-    if weight < 100 or weight > 900:
-        raise ValueError(f"`weight` must be between 100 and 900, not {weight}.")
+    if isinstance(weight, str):
+        weight = _map_weight_to_numeric(weight)
 
     url = f"https://fonts.googleapis.com/css2?family={family.replace(' ', '+')}"
     settings = {}
@@ -66,6 +66,8 @@ def _get_fonturl_from_google(
         settings["ital"] = str(int(italic))
 
     if weight is not None:
+        if weight < 100 or weight > 900:
+            raise ValueError(f"`weight` must be between 100 and 900, not {weight}.")
         settings["wght"] = str(int(weight))
 
     if settings:
@@ -111,21 +113,43 @@ def load_google_font(
     use_cache: bool = True,
 ) -> FontProperties:
     """
-    Load a font from Google Fonts with specified styling options and return a font property object.
+    Load a font from Google Fonts with specified styling options and return a font property
+    object that you can then use in your matplotlib charts.
 
-    Parameters:
-    - family (str): Font family name (e.g., "Open Sans", "Roboto", etc). Find fonts here: https://fonts.google.com/
-    - weight (int or str, optional): Desired font weight (e.g., 400, 700) or one of: thin, extra-light, light,
-        regular, medium, semi-bold, bold, extra-bold, black. Default is None.
-    - italic (bool, optional): Whether to use the italic variant. Default is None.
-    - allowed_formats (list[str]): List of acceptable font file formats. Defaults to ["woff2", "woff", "ttf", "otf"].
-    - use_cache: Whether or not to cache fonts.
+    The easiest way to find the font you want is to browse [Google font](https://fonts.google.com/)
+    and then pass the font name to the `family` argument.
 
-    Returns:
-        matplotlib.font_manager.FontProperties: A FontProperties object containing the loaded font.
+    Parameters
+    ---
+
+    - `family`: Font family name (e.g., "Open Sans", "Roboto", etc).
+
+    - `weight`: Desired font weight (e.g., 400, 700) or one of: 'thin', 'extra-light', 'light',
+        'regular', 'medium', 'semi-bold', 'bold', 'extra-bold', 'black'. Default is None.
+
+    - `italic`: Whether to use the italic variant. Default is None.
+
+    - `allowed_formats`: List of acceptable font file formats. Defaults to ["woff2", "woff", "ttf", "otf"].
+
+    - `use_cache`: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
+
+    Returns
+    ---
+
+    - `matplotlib.font_manager.FontProperties`: A `FontProperties` object containing the loaded font.
+
+    Usage
+    ---
+
+    ```py
+    from pyfonts import load_google_font
+
+    font = load_google_font("Roboto") # default Roboto font
+    font = load_google_font("Roboto", weight="bold") # bold font
+    font = load_google_font("Roboto", italic=True) # italic font
+    font = load_google_font("Roboto", weight="bold", italic=True) # italic and bold
+    ```
     """
-    if isinstance(weight, str):
-        weight = _map_weight_to_numeric(weight)
     font_url = _get_fonturl_from_google(
         family=family,
         weight=weight,

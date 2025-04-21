@@ -1,0 +1,40 @@
+# pyfonts
+
+<img src="https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true" alt="pyfonts logo" align="right" width="150px"/>
+
+A **simple** and **reproducible** way of using fonts in matplotlib.
+
+## Quick start
+
+```py hl_lines="5 13"
+# mkdocs: render
+import matplotlib.pyplot as plt
+from pyfonts import load_google_font
+
+font = load_google_font("Fascinate Inline")
+
+fig, ax = plt.subplots()
+ax.text(
+    x=0.2,
+    y=0.3,
+    s="Hey there!",
+    size=30,
+    font=font
+)
+```
+
+## Installation
+
+=== "stable"
+
+    ```bash
+    pip install pyfonts
+    ```
+
+=== "dev"
+
+    ```bash
+    pip install git+https://github.com/JosephBARBIERDARNAL/pyfonts.git@main
+    ```
+
+<br><br>

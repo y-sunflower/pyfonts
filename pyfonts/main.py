@@ -16,24 +16,39 @@ def load_font(
     font_path: Optional[str] = None,
 ) -> FontProperties:
     """
-    Loads a FontProperties object from a remote Github repo or a local file.
+    Loads a matplotlib `FontProperties` object from a remote url or a local file,
+    that you can then use in your matplotlib charts.
 
-    Parameters:
+    This function is most useful when the foot you are looking for is stored locally
+    or is not available in Google Fonts. Otherwise, it's easier to use the
+    [`load_google_font()`](../load_google_font) function instead.
 
-    - font_url: It may be one of the following:
-        - A URL pointing to a binary font file from Github.
+    Parameters
+    ---
+
+    - `font_url`: It may be one of the following:
+        - A URL pointing to a binary font file.
         - The local file path of the font.
-    - use_cache: Whether or not to cache fonts.
-    - font_path: (deprecated) The local file path of the font. Use font_url instead.
 
-    Returns:
+    - `use_cache`: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
 
-    - matplotlib.font_manager.FontProperties: A FontProperties object containing the loaded font.
+    - `font_path`: (deprecated) The local file path of the font. Use `font_url` instead.
 
-    Raises:
-    - ValueError: If both font_url and font_path are None or if the URL is invalid
-    - FileNotFoundError: If the local font file cannot be found
-    - Exception: For various URL or font loading errors
+    Returns
+    ---
+
+    - `matplotlib.font_manager.FontProperties`: A `FontProperties` object containing the loaded font.
+
+    Usage
+    ---
+
+    ```py
+    from pyfonts import load_font
+
+    font = load_font(
+        "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
+    )
+    ```
     """
     if font_path is not None:
         warnings.warn(
