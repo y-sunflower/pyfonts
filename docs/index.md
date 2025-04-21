@@ -4,9 +4,13 @@
 
 A **simple** and **reproducible** way of using fonts in matplotlib.
 
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pyfonts)
+
+<br>
+
 ## Quick start
 
-```py hl_lines="5 13"
+```py
 # mkdocs: render
 import matplotlib.pyplot as plt
 from pyfonts import load_google_font
@@ -16,7 +20,7 @@ font = load_google_font("Fascinate Inline")
 fig, ax = plt.subplots()
 ax.text(
     x=0.2,
-    y=0.3,
+    y=0.5,
     s="Hey there!",
     size=30,
     font=font
@@ -34,7 +38,9 @@ ax.text(
 === "dev"
 
     ```bash
-    pip install git+https://github.com/JosephBARBIERDARNAL/pyfonts.git@main
+    pip install git+https://github.com/JosephBARBIERDARNAL/pyfonts.git
     ```
+
+## Examples
 
 <br><br>
