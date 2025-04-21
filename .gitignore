@@ -9,3 +9,5 @@ sandbox.ipynb
 *cache*
 !cache.py
 !cache.md
+sandbox.*
+uv.lock

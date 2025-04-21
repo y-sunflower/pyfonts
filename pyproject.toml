@@ -1,7 +1,7 @@
 [project]
 name = "pyfonts"
 description = "A simple and reproducible way of using fonts in matplotlib"
-version = "0.3.0"
+version = "1.0.0"
 license = "MIT"
 license-files = ["LICENSE"]
 keywords = ["matplotlib", "font", "reproducibility"]
@@ -22,8 +22,17 @@ dependencies = [
 ]
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = [
+    "setuptools",
+    "setuptools-scm",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["pyfonts"]
+
+[tool.uv.sources]
+pyfonts = { workspace = true }
 
 [dependency-groups]
 dev = [
