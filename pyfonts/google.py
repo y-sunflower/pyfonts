@@ -6,7 +6,7 @@ from matplotlib.font_manager import FontProperties
 from pyfonts import load_font
 
 
-def _map_weight_to_numeric(weight_str):
+def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
     weight_mapping = {
         "thin": 100,
         "extra-light": 200,
@@ -77,19 +77,9 @@ def _get_fonturl_from_google(
 
     response = requests.get(url)
     response.raise_for_status()
-    link_tag = f'<link rel="stylesheet" href="{url}"/>'
-
-    if not link_tag:
-        raise RuntimeError("Failed to fetch Google Fonts stylesheet.")
-
-    match = re.search(r'href="([^"]+)"', link_tag)
-    if not match:
-        raise RuntimeError("Failed to extract stylesheet URL.")
-
-    css_url = match.group(1)
 
     try:
-        response = requests.get(css_url)
+        response = requests.get(url)
         response.raise_for_status()
         css_text = response.text
     except requests.RequestException as e:
@@ -99,10 +89,15 @@ def _get_fonturl_from_google(
     font_urls = re.findall(rf"url\((https://[^)]+\.({formats_pattern}))\)", css_text)
 
     if not font_urls:
-        raise RuntimeError("No font files found.")
+        raise RuntimeError(
+            f"No font files found in formats {allowed_formats} for family '{family}'"
+        )
 
-    font_url = font_urls[0][0]
-    return font_url
+    for fmt in allowed_formats:
+        for url, ext in font_urls:
+            if ext == fmt:
+                return url
+    raise RuntimeError("No acceptable font file format found.")
 
 
 def load_google_font(
