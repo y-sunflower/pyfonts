@@ -26,14 +26,11 @@ plugins:
 
 nav:
   - Home: index.md
-  - Contributing: contributing.md
-  - Tuto:
-      - tuto/basic-usage.md
-      - tuto/load-multiple-fonts.md
   - Reference:
       - reference/load_font.md
       - reference/load_google_font.md
       - reference/cache.md
+  - Contributing: contributing.md
 
 extra_css:
   - stylesheets/style.css

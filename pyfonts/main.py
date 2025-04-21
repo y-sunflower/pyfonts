@@ -23,6 +23,9 @@ def load_font(
     or is not available in Google Fonts. Otherwise, it's easier to use the
     [`load_google_font()`](../load_google_font) function instead.
 
+    If the url points to a font file on Github, add `?raw=true` at the end of the
+    url (see examples below).
+
     Parameters
     ---
 

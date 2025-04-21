@@ -27,6 +27,8 @@ ax.text(
 )
 ```
 
+[**See more examples**](./reference/load_google_font#examples)
+
 ## Installation
 
 === "stable"
@@ -40,7 +42,5 @@ ax.text(
     ```bash
     pip install git+https://github.com/JosephBARBIERDARNAL/pyfonts.git
     ```
-
-## Examples
 
 <br><br>
