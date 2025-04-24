@@ -1,6 +1,6 @@
 # pyfonts
 
-<img src="https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true" alt="pyfonts logo" align="right" width="150px"/>
+<img src="https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true" alt="Pyfonts logo" align="right" width="150px"/>
 
 A **simple** and **reproducible** way of using fonts in matplotlib.
 
