@@ -26,6 +26,7 @@ plugins:
 
 nav:
   - Home: index.md
+  - Examples: examples.md
   - Reference:
       - reference/load_font.md
       - reference/load_google_font.md

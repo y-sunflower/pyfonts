@@ -4,7 +4,21 @@ Any kind of contribution is more than welcomed! There are several ways you can c
 - Implementation of new features or resolution of existing bugs
 - Enhancing the documentation
 
-### Setting up your environment
+## How `pyfonts` works
+
+Under the bonnet, `pyfonts` does several things, but it can be summarised as follows:
+
+- Take the user's data (font name, weight, italics) and create a url that will be passed to Google's Font API.
+- Parse the response to obtain the url of the actual font file
+- Retrieve the font file from a temporary file
+- Use this temporary file to create a matplotlib font object (which is [`FontProperties`](https://matplotlib.org/stable/api/font_manager_api.html#matplotlib.font_manager.FontProperties){target=‘ \_blank’})
+- Return this object
+
+By default, the font file url is cached to reduce the number of requests required and improve performance. The cache can be cleared with `clear_pyfonts_cache()`.
+
+## Setting up your environment
+
+### Install for development
 
 - Fork the repository to your own GitHub account.
 
@@ -15,7 +29,7 @@ git clone https://github.com/YOURUSERNAME/pyfonts.git
 cd pyfonts
 ```
 
-- Create a new branch for your theme:
+- Create a new branch:
 
 ```bash
 git checkout -b my-feature
