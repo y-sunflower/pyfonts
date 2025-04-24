@@ -36,6 +36,11 @@ nav:
 extra_css:
   - stylesheets/style.css
 
+extra:
+  analytics:
+    provider: google
+    property: G-8DCY2BN6TG
+
 markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
