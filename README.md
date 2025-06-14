@@ -1,3 +1,5 @@
+![Coverage](coverage-badge.svg)
+
 # pyfonts
 
 <img src="https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true" alt="Pyfonts logo" align="right" width="150px"/>
@@ -29,6 +31,8 @@ ax.text(
 ![](https://raw.githubusercontent.com/JosephBARBIERDARNAL/pyfonts/refs/heads/main/quickstart.png)
 
 [**See more examples**](https://josephbarbierdarnal.github.io/pyfonts/reference/load_google_font#examples)
+
+<br>
 
 ## Installation
 

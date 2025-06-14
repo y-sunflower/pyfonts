@@ -41,6 +41,9 @@ dev = [
     "mkdocs-material>=9.6.9",
     "mkdocs-matplotlib>=0.10.1",
     "mkdocstrings-python>=1.16.5",
+    "coverage>=7.9.1",
+    "pytest-cov>=6.2.1",
+    "genbadge[coverage]>=1.1.2",
 ]
 
 [project.urls]
