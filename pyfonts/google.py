@@ -77,13 +77,7 @@ def _get_fonturl_from_google(
 
     response = requests.get(url)
     response.raise_for_status()
-
-    try:
-        response = requests.get(url)
-        response.raise_for_status()
-        css_text = response.text
-    except requests.RequestException as e:
-        raise RuntimeError(f"Failed to download CSS: {e}")
+    css_text = response.text
 
     formats_pattern = "|".join(map(re.escape, allowed_formats))
     font_urls = re.findall(rf"url\((https://[^)]+\.({formats_pattern}))\)", css_text)
@@ -97,7 +91,6 @@ def _get_fonturl_from_google(
         for url, ext in font_urls:
             if ext == fmt:
                 return url
-    raise RuntimeError("No acceptable font file format found.")
 
 
 def load_google_font(
@@ -153,13 +146,3 @@ def load_google_font(
     )
     fontprop = load_font(font_url, use_cache=use_cache)
     return fontprop
-
-
-if __name__ == "__main__":
-    import matplotlib.pyplot as plt
-
-    font = load_google_font("Roboto", weight="thin", italic=False)
-
-    fig, ax = plt.subplots()
-    ax.text(x=0.1, y=0.2, s="Hello there, you good?", size=30, font=font)
-    plt.show()

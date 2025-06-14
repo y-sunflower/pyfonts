@@ -30,6 +30,7 @@ nav:
   - Reference:
       - reference/load_font.md
       - reference/load_google_font.md
+      - reference/preview_font.md
       - reference/cache.md
   - Contributing: contributing.md
 

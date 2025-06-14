@@ -76,8 +76,7 @@ def load_font(
             return font_prop
         if not _is_valid_raw_url(font_url):
             raise ValueError(
-                f"""
-                The URL provided ({font_url}) does not appear to be valid.
+                f"""The URL provided ({font_url}) does not appear to be valid.
                 It must point to a binary font file from Github.
                 Have you forgotten to append `?raw=true` to the end of the URL?
                 """

@@ -19,8 +19,26 @@ def test_map_weight_to_numeric():
     assert _map_weight_to_numeric(200) == 200
     assert _map_weight_to_numeric(700) == 700
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid weight descriptor: "):
         _map_weight_to_numeric("invalid-weight")
+
+
+def test_errors():
+    with pytest.raises(ValueError, match="`weight` must be between 100 and 900"):
+        _get_fonturl_from_google(
+            "Roboto",
+            weight=90,
+            italic=False,
+            allowed_formats=["woff2", "woff", "ttf", "otf"],
+        )
+
+    with pytest.raises(RuntimeError, match="No font files found in formats"):
+        _get_fonturl_from_google(
+            "Roboto",
+            weight=400,
+            italic=False,
+            allowed_formats=["aaa"],
+        )
 
 
 @pytest.mark.parametrize("family", ["Roboto", "Open Sans"])
