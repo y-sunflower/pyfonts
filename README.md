@@ -1,5 +1,3 @@
-![Coverage](coverage-badge.svg)
-
 # pyfonts
 
 <img src="https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true" alt="Pyfonts logo" align="right" width="150px"/>
@@ -7,6 +5,7 @@
 A **simple** and **reproducible** way of using fonts in matplotlib.
 
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/pyfonts)
+![Coverage](coverage-badge.svg)
 
 <br>
 

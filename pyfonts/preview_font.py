@@ -40,4 +40,3 @@ def preview_font(
     )
 
     plt.axis("off")
-    plt.show()
