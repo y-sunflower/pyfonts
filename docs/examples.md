@@ -19,6 +19,18 @@ ax.text(
 )
 ```
 
+If you also want to change the default font used for e.g. the axis labels, legend entries, titles, etc., you can use `set_default()`:
+
+```py
+# mkdocs: render
+from pyfonts import set_default, load_google_font
+
+set_default(load_google_font("Fascinate Inline"))
+plt.title("Title") # will be in Fascinate Inline
+plt.plot([1, 2, 3], label="Plot") 
+# ^ axis labels, ticks, legend entries all also in Fascinate Inline
+```
+
 ## Bold/light fonts
 
 In order to have a **bold** font, you can use the `weight` argument that accepts either one of: "thin", "extra-light", "light", "regular","medium", "semi-bold", "bold", "extra-bold", "black", or any number between 100 and 900 (the higher the bolder).
