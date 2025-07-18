@@ -26,9 +26,21 @@ If you also want to change the default font used for e.g. the axis labels, legen
 from pyfonts import set_default, load_google_font
 
 set_default(load_google_font("Fascinate Inline"))
-plt.title("Title") # will be in Fascinate Inline
-plt.plot([1, 2, 3], label="Plot") 
-# ^ axis labels, ticks, legend entries all also in Fascinate Inline
+
+fig, ax = plt.subplots()
+
+x = [0, 1, 2, 3]
+y = [x**2 for x in x]
+
+# x+y tick labels, legend entries, title etc.
+# will all be in Fascinate Inline
+ax.plot(x, y, "-o", label='y = x²')
+ax.set_title('Simple Line Chart')
+ax.text(x=0, y=5, s="Hello world", size=20)
+ax.legend()
+
+# change the font for a specific element as usual
+ax.set_xlabel("x values", font=load_google_font("Roboto"), size=15)
 ```
 
 ## Bold/light fonts
