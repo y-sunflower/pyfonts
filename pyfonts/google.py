@@ -95,7 +95,7 @@ def _get_fonturl_from_google(
 
 def load_google_font(
     family: str,
-    weight: Union[int, str] = None,
+    weight: Union[int, str, None] = None,
     italic: Optional[bool] = None,
     allowed_formats: List[str] = ["woff2", "woff", "ttf", "otf"],
     use_cache: bool = True,

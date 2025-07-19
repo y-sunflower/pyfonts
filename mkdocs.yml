@@ -30,9 +30,9 @@ nav:
   - Reference:
       - reference/load_font.md
       - reference/load_google_font.md
+      - reference/set_default_font.md
       - reference/preview_font.md
       - reference/cache.md
-      - reference/set_default.md
   - Contributing: contributing.md
 
 extra_css:
