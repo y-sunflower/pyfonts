@@ -46,7 +46,7 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://josephbarbierdarnal.github.io/pyfonts/"
-Issues = "https://github.com/JosephBARBIERDARNAL/pyfonts/issues"
-Documentation = "https://josephbarbierdarnal.github.io/pyfonts/"
-Repository = "https://github.com/JosephBARBIERDARNAL/pyfonts"
+Homepage = "https://y-sunflower.github.io/pyfonts/"
+Issues = "https://github.com/y-sunflower/pyfonts/issues"
+Documentation = "https://y-sunflower.github.io/pyfonts/"
+Repository = "https://github.com/y-sunflower/pyfonts"

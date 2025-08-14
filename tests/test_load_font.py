@@ -9,7 +9,7 @@ from pyfonts import load_font
 @pytest.mark.parametrize(
     "font_url",
     [
-        "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true",
+        "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true",
         "tests/Ultra-Regular.ttf",
     ],
 )
@@ -40,14 +40,16 @@ def test_load_font_invalid_input():
         ):
             load_font(font_path=font_url)
 
-    font_url = "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf"
+    font_url = (
+        "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf"
+    )
     with pytest.raises(
         ValueError,
         match=rf"^{re.escape(f'The URL provided ({font_url}) does not appear to be valid.')}",
     ):
         load_font(font_url)
 
-    font_url = "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/UltraRegular.ttf?raw=true"
+    font_url = "https://github.com/y-sunflower/pyfonts/blob/main/tests/UltraRegular.ttf?raw=true"
     with pytest.raises(
         Exception,
         match="404 error. The url passed does not exist: font file not found.",

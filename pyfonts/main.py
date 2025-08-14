@@ -50,7 +50,7 @@ def load_font(
     from pyfonts import load_font
 
     font = load_font(
-        "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
+        "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
     )
     ```
     """

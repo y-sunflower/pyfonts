@@ -40,7 +40,7 @@ ax.text(
 === "dev"
 
     ```bash
-    pip install git+https://github.com/JosephBARBIERDARNAL/pyfonts.git
+    pip install git+https://github.com/y-sunflower/pyfonts.git
     ```
 
 <br><br>

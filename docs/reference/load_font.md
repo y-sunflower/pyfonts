@@ -32,7 +32,7 @@ import matplotlib.pyplot as plt
 from pyfonts import load_font
 
 font = load_font(
-   "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
+   "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
 )
 
 fig, ax = plt.subplots()
@@ -74,7 +74,7 @@ import matplotlib.pyplot as plt
 from pyfonts import load_font
 
 font_1 = load_font(
-   "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
+   "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
 )
 font_2 = load_font(
    "https://github.com/google/fonts/blob/main/ofl/amaranth/Amaranth-Bold.ttf?raw=true"

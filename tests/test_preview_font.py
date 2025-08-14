@@ -8,7 +8,7 @@ import pytest
 @pytest.mark.parametrize(
     "font_url",
     [
-        "https://github.com/JosephBARBIERDARNAL/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true",
+        "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true",
         "tests/Ultra-Regular.ttf",
     ],
 )
