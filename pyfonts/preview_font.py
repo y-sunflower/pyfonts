@@ -6,7 +6,7 @@ def preview_font(
     font_url: str,
 ):
     """
-    Preview a font. `font_url` is passed to [`load_font()`](../load_font/)
+    Preview a font. `font_url` is passed to [`load_font()`](load_font.md)
     """
     font = load_font(font_url)
 

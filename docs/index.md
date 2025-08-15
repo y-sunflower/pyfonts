@@ -4,7 +4,7 @@
 
 A **simple** and **reproducible** way of using fonts in matplotlib.
 
-![PyPI - Downloads](https://img.shields.io/pypi/dm/pyfonts)
+[![PyPI Downloads](https://static.pepy.tech/badge/pyfonts/month)](https://pepy.tech/projects/pyfonts)
 
 <br>
 
@@ -27,7 +27,7 @@ ax.text(
 )
 ```
 
-[**See more examples**](./reference/load_google_font#examples)
+[**See more examples**](./reference/load_google_font.md#examples)
 
 ## Installation
 

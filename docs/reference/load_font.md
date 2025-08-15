@@ -22,7 +22,7 @@ To:
 https://github.com/google/fonts/blob/main/ofl/amaranth/Amaranth-Bold.ttf?raw=true
 ```
 
-What's more, if you find a font on the Google font repo (for example, here: `https://github.com/google/fonts/`), it will probably be easier to use the [`load_google_font()`](../load_google_font) function.
+What's more, if you find a font on the Google font repo (for example, here: `https://github.com/google/fonts/`), it will probably be easier to use the [`load_google_font()`](load_google_font.md) function.
 
 #### Basic usage
 

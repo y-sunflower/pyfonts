@@ -22,7 +22,7 @@ def load_font(
 
     This function is most useful when the foot you are looking for is stored locally
     or is not available in Google Fonts. Otherwise, it's easier to use the
-    [`load_google_font()`](../load_google_font) function instead.
+    [`load_google_font()`](load_google_font.md) function instead.
 
     If the url points to a font file on Github, add `?raw=true` at the end of the
     url (see examples below).
