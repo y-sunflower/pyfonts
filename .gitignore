@@ -9,7 +9,7 @@ sandbox.ipynb
 *cache*
 !cache.py
 !cache.md
-sandbox*/
-sandbox*/
+sandbox.*
+sandbox/
 uv.lock
 scripts/release.sh
