@@ -3,6 +3,7 @@ import re
 
 from matplotlib.font_manager import FontProperties
 
+import pyfonts
 from pyfonts import load_font
 
 
@@ -73,6 +74,4 @@ def test_load_font_no_input():
 
 
 def test_pyfonts_version():
-    import pyfonts
-
     assert pyfonts.__version__ == "1.1.1"
