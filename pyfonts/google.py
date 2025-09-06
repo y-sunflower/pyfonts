@@ -99,6 +99,7 @@ def load_google_font(
     italic: Optional[bool] = None,
     allowed_formats: List[str] = ["woff2", "woff", "ttf", "otf"],
     use_cache: bool = True,
+    danger_not_verify_ssl: bool = False,
 ) -> FontProperties:
     """
     Load a font from Google Fonts with specified styling options and return a font property
@@ -120,6 +121,11 @@ def load_google_font(
     - `allowed_formats`: List of acceptable font file formats. Defaults to ["woff2", "woff", "ttf", "otf"].
 
     - `use_cache`: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
+
+    - `danger_not_verify_ssl`: Whether or not to to skip SSL certificate on
+        `ssl.SSLCertVerificationError`. If `True`, it's a **security risk** (such as data breaches or
+        man-in-the-middle attacks), but can be convenient in some cases, like local
+        development when behind a firewall.
 
     Returns
     ---
@@ -144,5 +150,7 @@ def load_google_font(
         italic=italic,
         allowed_formats=allowed_formats,
     )
-    fontprop = load_font(font_url, use_cache=use_cache)
+    fontprop = load_font(
+        font_url, use_cache=use_cache, danger_not_verify_ssl=danger_not_verify_ssl
+    )
     return fontprop
