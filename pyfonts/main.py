@@ -1,5 +1,6 @@
 from typing import Optional
 import os
+import ssl
 import warnings
 
 from urllib.request import urlopen
@@ -97,12 +98,6 @@ def load_font(
 
         try:
             response = urlopen(font_url)
-            content = response.read()
-
-            with open(cached_fontfile, "wb") as f:
-                f.write(content)
-
-            return FontProperties(fname=cached_fontfile)
         except HTTPError as e:
             if e.code == 404:
                 raise Exception(
@@ -110,11 +105,20 @@ def load_font(
                 )
             else:
                 raise ValueError(f"An HTTPError has occurred. Code: {e.code}")
-        except URLError:
-            raise Exception(
-                "Failed to load font. This may be due to a lack of internet connection"
-                " or an environment where local files are not accessible (Pyodide, etc)."
-            )
+        except URLError as e:
+            if isinstance(e.reason, ssl.SSLCertVerificationError):
+                response = urlopen(font_url, context=ssl._create_unverified_context())
+            else:
+                raise Exception(
+                    "Failed to load font. This may be due to a lack of internet connection "
+                    "or an environment where local files are not accessible (Pyodide, etc)."
+                )
+
+        content = response.read()
+        with open(cached_fontfile, "wb") as f:
+            f.write(content)
+
+        return FontProperties(fname=cached_fontfile)
     else:
         raise ValueError("You must provide a `font_url`.")
 
