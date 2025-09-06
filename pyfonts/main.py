@@ -15,13 +15,14 @@ from .cache import _create_cache_from_fontfile
 def load_font(
     font_url: Optional[str] = None,
     use_cache: bool = True,
+    danger_not_verify_ssl: bool = False,
     font_path: Optional[str] = None,
 ) -> FontProperties:
     """
     Loads a matplotlib `FontProperties` object from a remote url or a local file,
     that you can then use in your matplotlib charts.
 
-    This function is most useful when the foot you are looking for is stored locally
+    This function is most useful when the font you are looking for is stored locally
     or is not available in Google Fonts. Otherwise, it's easier to use the
     [`load_google_font()`](load_google_font.md) function instead.
 
@@ -36,6 +37,11 @@ def load_font(
         - The local file path of the font.
 
     - `use_cache`: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
+
+    - `danger_not_verify_ssl`: Whether or not to to skip SSL certificate on
+        `ssl.SSLCertVerificationError`. If `True`, it's a **security risk** (such as data breaches or
+        man-in-the-middle attacks), but can be convenient in some cases, like local
+        development when behind a firewall.
 
     - `font_path`: (deprecated) The local file path of the font. Use `font_url` instead.
 
@@ -107,7 +113,22 @@ def load_font(
                 raise ValueError(f"An HTTPError has occurred. Code: {e.code}")
         except URLError as e:
             if isinstance(e.reason, ssl.SSLCertVerificationError):
-                response = urlopen(font_url, context=ssl._create_unverified_context())
+                if danger_not_verify_ssl:
+                    warnings.warn(
+                        "SSL certificate verification disabled. This is insecure and vulnerable "
+                        "to man-in-the-middle attacks. Use only in trusted environments.",
+                        UserWarning,
+                    )
+                    response = urlopen(
+                        font_url, context=ssl._create_unverified_context()
+                    )
+                else:
+                    raise Exception(
+                        "SSL certificate verification failed. "
+                        "If you are behind a firewall or using a proxy, "
+                        "try setting `danger_not_verify_ssl=True` to bypass verification."
+                        "verification."
+                    )
             else:
                 raise Exception(
                     "Failed to load font. This may be due to a lack of internet connection "
