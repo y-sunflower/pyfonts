@@ -4,7 +4,7 @@
 
 A **simple** and **reproducible** way of using fonts in matplotlib.
 
-[![PyPI Downloads](https://static.pepy.tech/badge/pyfonts/month)](https://pepy.tech/projects/pyfonts)
+[![PyPI Downloads](https://static.pepy.tech/badge/pyfonts)](https://pepy.tech/projects/pyfonts)
 
 <br>
 

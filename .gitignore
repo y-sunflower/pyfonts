@@ -12,3 +12,4 @@ sandbox.ipynb
 sandbox.*
 uv.lock
 scripts/release.sh
+sandbox/
