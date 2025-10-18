@@ -42,5 +42,3 @@ ax.text(
 ```bash
 pip install pyfonts
 ```
-
-<br><br>

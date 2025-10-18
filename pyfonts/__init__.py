@@ -5,7 +5,7 @@ from .preview_font import preview_font
 
 from typing import Literal
 
-__version__: Literal["1.1.1"] = "1.1.1"
+__version__: Literal["1.1.2"] = "1.1.2"
 __all__: list[str] = [
     "load_font",
     "load_google_font",
