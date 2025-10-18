@@ -1,9 +1,17 @@
 import re
+import os
 from typing import Optional, Union, List
 import requests
 from matplotlib.font_manager import FontProperties
 
 from pyfonts import load_font
+from pyfonts.cache import (
+    _cache_key,
+    _load_cache_from_disk,
+    _save_cache_to_disk,
+    _MEMORY_CACHE,
+    _CACHE_FILE,
+)
 
 
 def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
@@ -32,10 +40,11 @@ def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
 
 
 def _get_fonturl_from_google(
-    family,
-    weight,
-    italic,
-    allowed_formats,
+    family: str,
+    weight: Optional[int, str],
+    italic: Optional[bool],
+    allowed_formats: list,
+    use_cache: bool,
 ):
     """
     Construct the Google Fonts URL for a given font family and style parameters,
@@ -55,21 +64,25 @@ def _get_fonturl_from_google(
         ValueError: If `italic` is not a boolean or `weight` is not a number.
         RuntimeError: If the stylesheet or font URL could not be retrieved or parsed.
     """
-
     if isinstance(weight, str):
         weight: int = _map_weight_to_numeric(weight)
+
+    cache_key: str = _cache_key(family, weight, italic, allowed_formats)
+    if use_cache:
+        if not _MEMORY_CACHE and os.path.exists(_CACHE_FILE):
+            _MEMORY_CACHE.update(_load_cache_from_disk())
+        if cache_key in _MEMORY_CACHE:
+            return _MEMORY_CACHE[cache_key]
 
     url: str = f"https://fonts.googleapis.com/css2?family={family.replace(' ', '+')}"
     settings: dict = {}
 
     if italic is not None:
         settings["ital"] = str(int(italic))
-
     if weight is not None:
-        if weight < 100 or weight > 900:
+        if not (100 <= weight <= 900):
             raise ValueError(f"`weight` must be between 100 and 900, not {weight}.")
         settings["wght"] = str(int(weight))
-
     if settings:
         axes = ",".join(settings.keys())
         values = ",".join(settings.values())
@@ -83,21 +96,23 @@ def _get_fonturl_from_google(
     font_urls: list = re.findall(
         rf"url\((https://[^)]+\.({formats_pattern}))\)", css_text
     )
-
     if not font_urls:
         raise RuntimeError(
-            f"No font files found in formats {allowed_formats} for family '{family}'"
+            f"No font files found in formats {allowed_formats} for '{family}'"
         )
 
     for fmt in allowed_formats:
-        for url, ext in font_urls:
+        for font_url, ext in font_urls:
             if ext == fmt:
-                return url
+                if use_cache:
+                    _MEMORY_CACHE[cache_key] = font_url
+                    _save_cache_to_disk()
+                return font_url
 
 
 def load_google_font(
     family: str,
-    weight: Union[int, str, None] = None,
+    weight: Optional[int, str] = None,
     italic: Optional[bool] = None,
     allowed_formats: List[str] = ["woff2", "woff", "ttf", "otf"],
     use_cache: bool = True,
@@ -151,10 +166,11 @@ def load_google_font(
         weight=weight,
         italic=italic,
         allowed_formats=allowed_formats,
+        use_cache=use_cache,
     )
-    fontprop: FontProperties = load_font(
+
+    return load_font(
         font_url,
         use_cache=use_cache,
         danger_not_verify_ssl=danger_not_verify_ssl,
     )
-    return fontprop
