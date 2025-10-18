@@ -22,7 +22,7 @@ def test_is_url(input_string, expected_result):
 
 def test_is_url_type_error():
     with pytest.raises(AttributeError):
-        _is_url(123)
+        _is_url(123)  # ty: ignore
 
 
 @pytest.mark.parametrize(
@@ -58,9 +58,9 @@ def test_is_valid_raw_url_with_empty_string():
 
 def test_is_valid_raw_url_with_none():
     with pytest.raises(TypeError):
-        _is_valid_raw_url(None)
+        _is_valid_raw_url(None)  # ty: ignore
 
 
 def test_is_valid_raw_url_with_non_string():
     with pytest.raises(TypeError):
-        _is_valid_raw_url(123)
+        _is_valid_raw_url(123)  # ty: ignore
