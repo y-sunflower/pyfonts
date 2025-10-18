@@ -30,14 +30,12 @@ def test_errors():
             weight=90,
             italic=False,
             allowed_formats=["woff2", "woff", "ttf", "otf"],
+            use_cache=True,
         )
 
     with pytest.raises(RuntimeError, match="No font files found in formats"):
         _get_fonturl_from_google(
-            "Roboto",
-            weight=400,
-            italic=False,
-            allowed_formats=["aaa"],
+            "Roboto", weight=400, italic=False, allowed_formats=["aaa"], use_cache=True
         )
 
 
@@ -50,6 +48,7 @@ def test_get_fonturl_from_google(family, weight, italic):
         weight=weight,
         italic=italic,
         allowed_formats=["woff2", "woff", "ttf", "otf"],
+        use_cache=True,
     )
 
     assert isinstance(url, str)
