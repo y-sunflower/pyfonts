@@ -7,7 +7,7 @@ from pyfonts import load_font
 
 
 def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
-    weight_mapping = {
+    weight_mapping: dict = {
         "thin": 100,
         "extra-light": 200,
         "light": 300,
@@ -21,7 +21,7 @@ def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
     if isinstance(weight_str, int) or isinstance(weight_str, float):
         return int(weight_str)
 
-    weight_str = weight_str.lower()
+    weight_str: str = weight_str.lower()
     if weight_str in weight_mapping:
         return weight_mapping[weight_str]
 
@@ -57,10 +57,10 @@ def _get_fonturl_from_google(
     """
 
     if isinstance(weight, str):
-        weight = _map_weight_to_numeric(weight)
+        weight: int = _map_weight_to_numeric(weight)
 
-    url = f"https://fonts.googleapis.com/css2?family={family.replace(' ', '+')}"
-    settings = {}
+    url: str = f"https://fonts.googleapis.com/css2?family={family.replace(' ', '+')}"
+    settings: dict = {}
 
     if italic is not None:
         settings["ital"] = str(int(italic))
@@ -80,7 +80,9 @@ def _get_fonturl_from_google(
     css_text = response.text
 
     formats_pattern = "|".join(map(re.escape, allowed_formats))
-    font_urls = re.findall(rf"url\((https://[^)]+\.({formats_pattern}))\)", css_text)
+    font_urls: list = re.findall(
+        rf"url\((https://[^)]+\.({formats_pattern}))\)", css_text
+    )
 
     if not font_urls:
         raise RuntimeError(
@@ -150,7 +152,9 @@ def load_google_font(
         italic=italic,
         allowed_formats=allowed_formats,
     )
-    fontprop = load_font(
-        font_url, use_cache=use_cache, danger_not_verify_ssl=danger_not_verify_ssl
+    fontprop: FontProperties = load_font(
+        font_url,
+        use_cache=use_cache,
+        danger_not_verify_ssl=danger_not_verify_ssl,
     )
     return fontprop

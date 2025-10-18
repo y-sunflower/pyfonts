@@ -22,7 +22,7 @@ def clear_pyfonts_cache(verbose: bool = True) -> None:
     clear_pyfonts_cache()
     ```
     """
-    cache_dir = _get_cache_dir()
+    cache_dir: str = _get_cache_dir()
     if os.path.exists(cache_dir):
         shutil.rmtree(cache_dir)
         if verbose:
@@ -37,11 +37,11 @@ def _create_cache_from_fontfile(font_url):
     url_path = parsed_url.path
     filename = os.path.basename(url_path)
     _, ext = os.path.splitext(filename)
-    url_hash = hashlib.sha256(font_url.encode()).hexdigest()
-    cache_filename = f"{url_hash}{ext}"
-    cache_dir = _get_cache_dir()
+    url_hash: str = hashlib.sha256(font_url.encode()).hexdigest()
+    cache_filename: str = f"{url_hash}{ext}"
+    cache_dir: str = _get_cache_dir()
     os.makedirs(cache_dir, exist_ok=True)
-    cached_fontfile = os.path.join(cache_dir, cache_filename)
+    cached_fontfile: str = os.path.join(cache_dir, cache_filename)
     return cached_fontfile, cache_dir
 
 

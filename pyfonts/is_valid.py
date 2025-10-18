@@ -12,7 +12,7 @@ def _is_url(s: str) -> bool:
     Returns:
        - a boolean indicating whether the string is an url or not.
     """
-    is_an_url = urlparse(s).scheme != ""
+    is_an_url: bool = urlparse(s).scheme != ""
     return is_an_url
 
 
@@ -51,7 +51,7 @@ def _is_valid_raw_url(url: str) -> bool:
         return True
 
     # Check for ?raw=true in query string, even with extra params
-    query_params = parse_qs(parsed.query)
+    query_params: dict[str, list[str]] = parse_qs(parsed.query)
     if "raw" in query_params and query_params["raw"] == ["true"]:
         return True
 
