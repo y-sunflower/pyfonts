@@ -1,3 +1,10 @@
+```python
+# mkdocs: render
+# mkdocs: hidecode
+import matplotlib
+matplotlib.rcParams.update(matplotlib.rcParamsDefault)
+```
+
 # pyfonts
 
 <img src="https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true" alt="Pyfonts logo" align="right" width="150px"/>

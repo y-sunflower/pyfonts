@@ -1,3 +1,10 @@
+```python
+# mkdocs: render
+# mkdocs: hidecode
+import matplotlib
+matplotlib.rcParams.update(matplotlib.rcParamsDefault)
+```
+
 # Set default font
 
 ::: pyfonts.set_default_font

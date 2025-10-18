@@ -1,3 +1,10 @@
+```python
+# mkdocs: render
+# mkdocs: hidecode
+import matplotlib
+matplotlib.rcParams.update(matplotlib.rcParamsDefault)
+```
+
 ## Quick start
 
 The easiest (and recommended) way of using `pyfonts` is to find the name of a font you like on [Google font](https://fonts.google.com/){target="\_blank"} and pass it to `load_google_font()`:
@@ -83,7 +90,7 @@ ax.text(
 
 If you also want to change the default font used for e.g. the axis labels, legend entries, titles, etc., you can use `set_default_font()`:
 
-```python
+```python hl_lines="4 5"
 # mkdocs: render
 from pyfonts import set_default_font, load_google_font
 

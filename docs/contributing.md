@@ -57,7 +57,7 @@ uv run pytest
 ### Preview documentation locally
 
 ```bash
-PYTHONPATH=$(pwd) uv run mkdocs serve
+uv run mkdocs serve
 ```
 
 ### Push changes
