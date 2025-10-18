@@ -29,37 +29,29 @@ def load_font(
     If the url points to a font file on Github, add `?raw=true` at the end of the
     url (see examples below).
 
-    Parameters
-    ---
+    Args:
+        font_url: It may be one of the following:
+            - A URL pointing to a binary font file.
+            - The local file path of the font.
+        use_cache: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
+        danger_not_verify_ssl: Whether or not to to skip SSL certificate on
+            `ssl.SSLCertVerificationError`. If `True`, it's a **security risk** (such as data breaches or
+            man-in-the-middle attacks), but can be convenient in some cases, like local
+            development when behind a firewall.
+        font_path: (deprecated) The local file path of the font. Use `font_url` instead.
 
-    - `font_url`: It may be one of the following:
-        - A URL pointing to a binary font file.
-        - The local file path of the font.
+    Returns:
+        matplotlib.font_manager.FontProperties: A `FontProperties` object containing the loaded font.
 
-    - `use_cache`: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
+    Examples:
 
-    - `danger_not_verify_ssl`: Whether or not to to skip SSL certificate on
-        `ssl.SSLCertVerificationError`. If `True`, it's a **security risk** (such as data breaches or
-        man-in-the-middle attacks), but can be convenient in some cases, like local
-        development when behind a firewall.
+        ```python
+        from pyfonts import load_font
 
-    - `font_path`: (deprecated) The local file path of the font. Use `font_url` instead.
-
-    Returns
-    ---
-
-    - `matplotlib.font_manager.FontProperties`: A `FontProperties` object containing the loaded font.
-
-    Usage
-    ---
-
-    ```py
-    from pyfonts import load_font
-
-    font = load_font(
-        "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
-    )
-    ```
+        font = load_font(
+            "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
+        )
+        ```
     """
     if font_path is not None:
         warnings.warn(
@@ -151,21 +143,19 @@ def set_default_font(font: FontProperties) -> None:
 
     Under the hood it updates all the relevant matplotlib rcParams.
 
-    Parameters
-    ---
+    Args:
+        font: A `FontProperties` object containing the font to set as default.
 
-    - `font`: A `FontProperties` object containing the font to set as default.
+    Examples:
 
-    Usage
-    ---
-    ```py
-    from pyfonts import set_default_font, load_google_font
+        ```python
+        from pyfonts import set_default_font, load_google_font
 
-    set_default_font(load_google_font("Fascinate Inline"))
-    plt.title("Title") # will be in Fascinate Inline
-    plt.plot([1, 2, 3], label="Plot")
-    # ^ axis labels, ticks, legend entries all also in Fascinate Inline
-    ```
+        set_default_font(load_google_font("Fascinate Inline"))
+        plt.title("Title") # will be in Fascinate Inline
+        plt.plot([1, 2, 3], label="Plot")
+        # ^ axis labels, ticks, legend entries all also in Fascinate Inline
+        ```
     """
     fontManager.addfont(str(font.get_file()))
     rcParams.update(

@@ -26,7 +26,7 @@ What's more, if you find a font on the Google font repo (for example, here: `htt
 
 #### Basic usage
 
-```py
+```python
 # mkdocs: render
 import matplotlib.pyplot as plt
 from pyfonts import load_font
@@ -47,7 +47,7 @@ ax.text(
 
 #### Custom font
 
-```py
+```python
 # mkdocs: render
 import matplotlib.pyplot as plt
 from pyfonts import load_font
@@ -68,7 +68,7 @@ ax.text(
 
 #### Use multiple fonts
 
-```py
+```python
 # mkdocs: render
 import matplotlib.pyplot as plt
 from pyfonts import load_font

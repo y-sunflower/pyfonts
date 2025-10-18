@@ -6,7 +6,7 @@
 
 ## Example
 
-```py hl_lines="4 5"
+```python hl_lines="4 5"
 # mkdocs: render
 from pyfonts import set_default_font, load_google_font
 

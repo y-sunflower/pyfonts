@@ -6,11 +6,11 @@ def _is_url(s: str) -> bool:
     """
     Tests whether a string is an url.
 
-    Parameters:
-       - s: a string.
+    Args:
+       s: a string.
 
     Returns:
-       - a boolean indicating whether the string is an url or not.
+       a boolean indicating whether the string is an url or not.
     """
     is_an_url: bool = urlparse(s).scheme != ""
     return is_an_url
@@ -22,11 +22,11 @@ def _is_valid_raw_url(url: str) -> bool:
     - If the extension is a common font format (.ttf, .otf, .woff, .woff2)
     - If it's a GitHub URL, whether it's in a valid raw format
 
-    Parameters:
-       - url: the url of the font file.
+    Args:
+       url: the url of the font file.
 
     Returns:
-       - a boolean indicating whether the url likely corresponds to a raw font file.
+       a boolean indicating whether the url likely corresponds to a raw font file.
     """
     # Check file extension
     font_pattern = r".+\.(ttf|otf|woff2?|eot)(\?.*)?$"

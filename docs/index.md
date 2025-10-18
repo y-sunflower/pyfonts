@@ -10,7 +10,7 @@ A **simple** and **reproducible** way of using fonts in matplotlib.
 
 ## Quick start
 
-```py
+```python
 # mkdocs: render
 import matplotlib.pyplot as plt
 from pyfonts import load_google_font

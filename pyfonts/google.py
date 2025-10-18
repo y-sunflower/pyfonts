@@ -41,7 +41,7 @@ def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
 
 def _get_fonturl_from_google(
     family: str,
-    weight: Optional[int, str],
+    weight: Optional[Union[int, str]],
     italic: Optional[bool],
     allowed_formats: list,
     use_cache: bool,
@@ -51,18 +51,13 @@ def _get_fonturl_from_google(
     fetch the associated CSS, and extract the URL of the font file.
 
     Args:
-        family (str): Name of the font family (e.g., "Roboto").
-        italic (bool or None): Whether the font should be italic. If None, no italic axis is set.
-        weight (int or float or None): Numeric font weight (e.g., 400, 700). If None, no weight axis is set.
-        width (ignored): Currently unused. Reserved for potential future support.
-        allowed_formats (list[str]): List of acceptable font file extensions (e.g., ["woff2", "ttf"]).
+        family: Name of the font family (e.g., "Roboto").
+        italic: Whether the font should be italic. If None, no italic axis is set.
+        weight: Numeric font weight (e.g., 400, 700). If None, no weight axis is set.
+        allowed_formats: List of acceptable font file extensions (e.g., ["woff2", "ttf"]).
 
     Returns:
-        str: Direct URL to the font file matching the requested style and format.
-
-    Raises:
-        ValueError: If `italic` is not a boolean or `weight` is not a number.
-        RuntimeError: If the stylesheet or font URL could not be retrieved or parsed.
+        Direct URL to the font file matching the requested style and format.
     """
     if isinstance(weight, str):
         weight: int = _map_weight_to_numeric(weight)
@@ -112,7 +107,7 @@ def _get_fonturl_from_google(
 
 def load_google_font(
     family: str,
-    weight: Optional[int, str] = None,
+    weight: Optional[Union[int, str]] = None,
     italic: Optional[bool] = None,
     allowed_formats: List[str] = ["woff2", "woff", "ttf", "otf"],
     use_cache: bool = True,
@@ -125,41 +120,31 @@ def load_google_font(
     The easiest way to find the font you want is to browse [Google font](https://fonts.google.com/)
     and then pass the font name to the `family` argument.
 
-    Parameters
-    ---
-
-    - `family`: Font family name (e.g., "Open Sans", "Roboto", etc).
-
-    - `weight`: Desired font weight (e.g., 400, 700) or one of: 'thin', 'extra-light', 'light',
+    Args:
+        family: Font family name (e.g., "Open Sans", "Roboto", etc).
+        weight: Desired font weight (e.g., 400, 700) or one of: 'thin', 'extra-light', 'light',
         'regular', 'medium', 'semi-bold', 'bold', 'extra-bold', 'black'. Default is None.
-
-    - `italic`: Whether to use the italic variant. Default is None.
-
-    - `allowed_formats`: List of acceptable font file formats. Defaults to ["woff2", "woff", "ttf", "otf"].
-
-    - `use_cache`: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
-
-    - `danger_not_verify_ssl`: Whether or not to to skip SSL certificate on
+        italic: Whether to use the italic variant. Default is None.
+        allowed_formats: List of acceptable font file formats. Defaults to ["woff2", "woff", "ttf", "otf"].
+        use_cache: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
+        danger_not_verify_ssl: Whether or not to to skip SSL certificate on
         `ssl.SSLCertVerificationError`. If `True`, it's a **security risk** (such as data breaches or
         man-in-the-middle attacks), but can be convenient in some cases, like local
         development when behind a firewall.
 
-    Returns
-    ---
+    Returns:
+        matplotlib.font_manager.FontProperties: A `FontProperties` object containing the loaded font.
 
-    - `matplotlib.font_manager.FontProperties`: A `FontProperties` object containing the loaded font.
+    Examples:
 
-    Usage
-    ---
+        ```python
+        from pyfonts import load_google_font
 
-    ```py
-    from pyfonts import load_google_font
-
-    font = load_google_font("Roboto") # default Roboto font
-    font = load_google_font("Roboto", weight="bold") # bold font
-    font = load_google_font("Roboto", italic=True) # italic font
-    font = load_google_font("Roboto", weight="bold", italic=True) # italic and bold
-    ```
+        font = load_google_font("Roboto") # default Roboto font
+        font = load_google_font("Roboto", weight="bold") # bold font
+        font = load_google_font("Roboto", italic=True) # italic font
+        font = load_google_font("Roboto", weight="bold", italic=True) # italic and bold
+        ```
     """
     font_url = _get_fonturl_from_google(
         family=family,

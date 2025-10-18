@@ -47,15 +47,13 @@ def clear_pyfonts_cache(verbose: bool = True) -> None:
       1. The font cache directory
       2. The Google Fonts URL cache
 
-    Parameters
-    ---
+    Args:
 
     - `verbose`: Whether or not to print a cache cleanup message. The default value is True.
 
-    Usage
-    ---
+    Examples:
 
-    ```py
+    ```python
     from pyfonts import clear_pyfonts_cache
     clear_pyfonts_cache()
     ```

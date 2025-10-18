@@ -10,7 +10,7 @@
 
 #### Basic usage
 
-```py hl_lines="5 13"
+```python hl_lines="5 13"
 # mkdocs: render
 import matplotlib.pyplot as plt
 from pyfonts import load_google_font
@@ -29,7 +29,7 @@ ax.text(
 
 #### Custom font
 
-```py hl_lines="5 13"
+```python hl_lines="5 13"
 # mkdocs: render
 import matplotlib.pyplot as plt
 from pyfonts import load_google_font
@@ -48,7 +48,7 @@ ax.text(
 
 #### Use multiple fonts
 
-```py hl_lines="5 6 15 23"
+```python hl_lines="5 6 15 23"
 # mkdocs: render
 import matplotlib.pyplot as plt
 from pyfonts import load_google_font
@@ -79,7 +79,7 @@ ax.text(
 
 All fonts from [Google font](https://fonts.google.com/) can be used:
 
-```py hl_lines="5 13"
+```python hl_lines="5 13"
 # mkdocs: render
 import matplotlib.pyplot as plt
 from pyfonts import load_google_font
