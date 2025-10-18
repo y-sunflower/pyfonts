@@ -1,8 +1,12 @@
 # pyfonts
 
-<img src="https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true" alt="PyFonts logo" align="right" width="150px"/>
+<img src="https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true" alt="Pyfonts logo" align="right" width="150px"/>
 
-A **simple** and **reproducible** way of using fonts in matplotlib.
+A **simple** and **reproducible** way of using fonts in matplotlib. In short, `pyfonts`:
+
+- allows you to use all **Google Font** fonts
+- allows you to use any font from an **arbitrary URL**
+- is **fast** (thanks to its cache system)
 
 [![PyPI Downloads](https://static.pepy.tech/badge/pyfonts)](https://pepy.tech/projects/pyfonts)
 
