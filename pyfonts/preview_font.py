@@ -1,4 +1,4 @@
-from .main import load_font
+from pyfonts.main import load_font
 import matplotlib.pyplot as plt
 
 

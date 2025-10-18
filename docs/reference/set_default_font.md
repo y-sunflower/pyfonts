@@ -1,3 +1,10 @@
+```python
+# mkdocs: render
+# mkdocs: hidecode
+import matplotlib
+matplotlib.rcParams.update(matplotlib.rcParamsDefault)
+```
+
 # Set default font
 
 ::: pyfonts.set_default_font
@@ -6,7 +13,7 @@
 
 ## Example
 
-```py hl_lines="4 5"
+```python hl_lines="4 5"
 # mkdocs: render
 from pyfonts import set_default_font, load_google_font
 
