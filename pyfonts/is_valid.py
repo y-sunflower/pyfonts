@@ -12,7 +12,10 @@ def _is_url(s: str) -> bool:
     Returns:
        a boolean indicating whether the string is an url or not.
     """
-    is_an_url: bool = urlparse(s).scheme != ""
+    parseResult = urlparse(s)
+    is_an_url: bool = (
+        parseResult.scheme in ["http", "https"] and parseResult.netloc != ""
+    )
     return is_an_url
 
 
