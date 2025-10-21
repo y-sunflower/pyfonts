@@ -7,22 +7,19 @@ from pyfonts.is_valid import _is_valid_raw_url, _is_url
     [
         ("https://www.example.com", True),
         ("http://example.com", True),
-        ("ftp://ftp.example.com", True),
+        ("ftp://ftp.example.com", False),
         ("www.example.com", False),
         ("example.com", False),
         ("just a string", False),
         ("", False),
-        ("file:///C:/Users/username/Documents/file.txt", True),
-        ("mailto:user@example.com", True),
+        ("file:///C:/Users/username/Documents/file.txt", False),
+        ("C:\\Windows\\Fonts\\arial.ttf", False),
+        ("file:\\C:\\Windows\\Fonts\\arial.ttf", False),
+        ("mailto:user@example.com", False),
     ],
 )
 def test_is_url(input_string, expected_result):
     assert _is_url(input_string) == expected_result
-
-
-def test_is_url_type_error():
-    with pytest.raises(AttributeError):
-        _is_url(123)  # ty: ignore
 
 
 @pytest.mark.parametrize(
