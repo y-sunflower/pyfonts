@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Barriecito&family=Rubik+Distressed&family=Bangers&family=Jolly+Lodger&display=swap");
+
 h2,
 h3,
 h4 {
@@ -12,8 +14,126 @@ h4 {
   background-color: #cb4e4f;
 }
 
+[data-md-component="logo"] > img {
+  height: 3rem !important;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+
+.hero {
+  font-size: 1.4em;
+  height: 75vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.w2 {
+  font-family: "Bangers", system-ui;
+}
+
+.w4 {
+  font-family: "Jolly Lodger", system-ui;
+}
+
+.w9 {
+  font-family: "Barriecito", system-ui;
+}
+
+.w8 {
+  font-family: "Rubik Distressed", system-ui;
+}
+
+.pyfonts-name {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 2em;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  transform-origin: center;
+  color: #222;
+  position: relative;
+}
+
+/* trigger-class added on load */
+.pyfonts-name.animated {
+  animation: popWiggle 1s cubic-bezier(0.2, 0.9, 0.3, 1) both,
+    gradientShift 3s linear infinite;
+}
+
+/* quick glossy sweep */
+.pyfonts-name.animated::after {
+  content: "";
+  position: absolute;
+  left: -40%;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  transform: skewX(-20deg);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  mix-blend-mode: screen;
+  animation: shine 1s ease 0.15s both;
+  pointer-events: none;
+}
+
+/* keyframes */
+@keyframes popWiggle {
+  0% {
+    transform: scale(0.6) rotate(-6deg);
+    opacity: 0;
+    filter: blur(6px);
+  }
+  50% {
+    transform: scale(1.08) rotate(6deg);
+    filter: blur(0);
+  }
+  70% {
+    transform: scale(0.98) rotate(-3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) skewX(-20deg);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
 @media (max-width: 768px) {
   .md-nav--primary .md-nav__title[for="__drawer"] {
     background-color: #cb4e4f;
+  }
+
+  .hero {
+    height: 80vh;
+    font-size: 1em;
   }
 }
