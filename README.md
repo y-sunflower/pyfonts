@@ -1,4 +1,4 @@
-<div align="center" style="font-size: 1.2em">
+<div align="center" style="font-size: 1.6em">
 
 # pyfonts
 
