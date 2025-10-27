@@ -37,7 +37,7 @@ ax.text(
 
 ![](https://raw.githubusercontent.com/y-sunflower/pyfonts/refs/heads/main/quickstart.png)
 
-[**See more examples**](https://y-sunflower.github.io/pyfonts/reference/load_google_font#examples)
+[**See more examples**](https://y-sunflower.github.io/pyfonts/#quick-start)
 
 <br>
 
