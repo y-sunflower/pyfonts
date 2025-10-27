@@ -44,6 +44,7 @@ dev = [
     "coverage>=7.9.1",
     "genbadge[coverage]>=1.1.2",
     "ty>=0.0.1a23",
+    "mkdocs-redirects>=1.2.2",
 ]
 
 [project.urls]

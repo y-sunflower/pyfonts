@@ -11,10 +11,15 @@ theme:
     - navigation.tabs
   icon:
     repo: fontawesome/brands/github
+  favicon: https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true
+  logo: https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/pyfonts/image.png?raw=true
 
 plugins:
   - mkdocs_matplotlib
   - search
+  - redirects:
+      redirect_maps:
+        "examples.md": "index.md#quick-start"
   - mkdocstrings:
       default_handler: python
       handlers:
@@ -26,14 +31,14 @@ plugins:
 
 nav:
   - Home: index.md
-  - Examples: examples.md
-  - Reference:
+  - API Reference:
       - reference/load_font.md
       - reference/load_google_font.md
       - reference/set_default_font.md
       - reference/preview_font.md
       - reference/cache.md
   - Contributing: contributing.md
+  - Changelog: changelog.md
 
 extra_css:
   - stylesheets/style.css

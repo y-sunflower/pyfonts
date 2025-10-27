@@ -122,9 +122,9 @@ def load_google_font(
 
     Args:
         family: Font family name (e.g., "Open Sans", "Roboto", etc).
-        weight: Desired font weight (e.g., 400, 700) or one of: 'thin', 'extra-light', 'light',
-        'regular', 'medium', 'semi-bold', 'bold', 'extra-bold', 'black'. Default is None.
-        italic: Whether to use the italic variant. Default is None.
+        weight: Desired font weight (e.g., 400, 700) or one of 'thin', 'extra-light', 'light',
+        'regular', 'medium', 'semi-bold', 'bold', 'extra-bold', 'black'. Default is `None`.
+        italic: Whether to use the italic variant. Default is `None`.
         allowed_formats: List of acceptable font file formats. Defaults to ["woff2", "woff", "ttf", "otf"].
         use_cache: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
         danger_not_verify_ssl: Whether or not to to skip SSL certificate on
