@@ -1,7 +1,7 @@
 import pytest
 from matplotlib.font_manager import FontProperties
 from pyfonts import load_google_font
-from pyfonts.google import _map_weight_to_numeric, _get_fonturl_from_google
+from pyfonts.utils import _map_weight_to_numeric, _get_fonturl
 from pyfonts.is_valid import _is_url, _is_valid_raw_url
 
 
@@ -25,8 +25,9 @@ def test_map_weight_to_numeric():
 
 def test_errors():
     with pytest.raises(ValueError, match="`weight` must be between 100 and 900"):
-        _get_fonturl_from_google(
-            "Roboto",
+        _get_fonturl(
+            endpoint="https://fonts.googleapis.com/css2",
+            family="Roboto",
             weight=90,
             italic=False,
             allowed_formats=["woff2", "woff", "ttf", "otf"],
@@ -34,17 +35,23 @@ def test_errors():
         )
 
     with pytest.raises(RuntimeError, match="No font files found in formats"):
-        _get_fonturl_from_google(
-            "Roboto", weight=400, italic=False, allowed_formats=["aaa"], use_cache=True
+        _get_fonturl(
+            endpoint="https://fonts.googleapis.com/css2",
+            family="Roboto",
+            weight=400,
+            italic=False,
+            allowed_formats=["aaa"],
+            use_cache=True,
         )
 
 
 @pytest.mark.parametrize("family", ["Roboto", "Open Sans"])
 @pytest.mark.parametrize("weight", [300, 500, 800])
 @pytest.mark.parametrize("italic", [True, False])
-def test_get_fonturl_from_google(family, weight, italic):
-    url = _get_fonturl_from_google(
-        family,
+def test_get_fonturl(family, weight, italic):
+    url = _get_fonturl(
+        endpoint="https://fonts.googleapis.com/css2",
+        family=family,
         weight=weight,
         italic=italic,
         allowed_formats=["woff2", "woff", "ttf", "otf"],
