@@ -54,6 +54,7 @@ def load_font(
         )
         ```
     """
+    print(f"font_url: {font_url}")
     if font_path is not None:
         warnings.warn(
             "`font_path` argument is deprecated and will be removed in a future version."
@@ -138,6 +139,9 @@ def load_font(
         content = response.read()
         with open(cached_fontfile, "wb") as f:
             f.write(content)
+
+        if cached_fontfile.endswith(("woff", "woff2")):
+            cached_fontfile: str = _decompress_woff_to_ttf(cached_fontfile)
 
         return FontProperties(fname=cached_fontfile)
     else:

@@ -22,7 +22,7 @@ matplotlib.rcParams.update(matplotlib.rcParamsDefault)
 import matplotlib.pyplot as plt
 from pyfonts import load_bunny_font
 
-font = load_bunny_font("Alice") # default Alice font
+font = load_bunny_font("Alumni Sans") # default Alice font
 
 fig, ax = plt.subplots()
 ax.text(
@@ -41,7 +41,7 @@ ax.text(
 import matplotlib.pyplot as plt
 from pyfonts import load_bunny_font
 
-font = load_bunny_font("Alice", weight="bold", italic=True) # italic and bold
+font = load_bunny_font("Alumni Sans", weight="bold", italic=True) # italic and bold
 
 fig, ax = plt.subplots()
 ax.text(
@@ -60,8 +60,8 @@ ax.text(
 import matplotlib.pyplot as plt
 from pyfonts import load_bunny_font
 
-font_bold = load_bunny_font("Alice", weight="bold")
-font_italic = load_bunny_font("Alice", italic=True)
+font_bold = load_bunny_font("Alumni Sans", weight="bold")
+font_italic = load_bunny_font("Alumni Sans", italic=True)
 
 fig, ax = plt.subplots()
 
@@ -84,7 +84,7 @@ ax.text(
 
 #### Fancy font
 
-All fonts from [Google font](https://fonts.google.com/) can be used:
+All fonts from [Bunny font](https://fonts.bunny.net/) can be used:
 
 ```python hl_lines="5 13"
 # mkdocs: render

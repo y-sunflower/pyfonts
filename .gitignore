@@ -13,3 +13,4 @@ sandbox.*
 uv.lock
 scripts/release.sh
 sandbox/
+.venv

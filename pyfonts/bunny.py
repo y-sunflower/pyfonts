@@ -56,7 +56,6 @@ def load_bunny_font(
         allowed_formats=allowed_formats,
         use_cache=use_cache,
     )
-    print(font_url)
 
     return load_font(
         font_url,

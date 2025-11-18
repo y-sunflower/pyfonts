@@ -48,7 +48,7 @@ def _get_fonturl(
     url: str = f"{endpoint}?family={family.replace(' ', '+')}"
     settings: dict = {}
 
-    if italic is not None:
+    if italic:
         settings["ital"] = str(int(italic))
     if weight is not None:
         if not (100 <= weight <= 900):
@@ -62,6 +62,15 @@ def _get_fonturl(
     response = requests.get(url)
     response.raise_for_status()
     css_text = response.text
+
+    # for some reason, Bunny fonts sends this text response instead of an
+    # actual error message, so we handle it ourselves manually.
+    if "Error: API Error" in css_text and "No families available" in css_text:
+        raise ValueError(
+            f"No font available for the request at URL: {url}. "
+            "Maybe the font variant (italic, bold, etc) you're looking for"
+            " does not exist."
+        )
 
     formats_pattern = "|".join(map(re.escape, allowed_formats))
     font_urls: list = re.findall(
