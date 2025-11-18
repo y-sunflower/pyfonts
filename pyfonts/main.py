@@ -10,6 +10,7 @@ from matplotlib import rcParams
 
 from pyfonts.is_valid import _is_url, _is_valid_raw_url
 from pyfonts.cache import _create_cache_from_fontfile
+from pyfonts.decompress import _decompress_woff_to_ttf
 
 
 def load_font(
@@ -82,11 +83,18 @@ def load_font(
                 """
             )
 
-        cached_fontfile, cache_dir = _create_cache_from_fontfile(font_url=font_url)
+        cached_fontfile, cache_dir = _create_cache_from_fontfile(font_url)
+
         if use_cache:
             # check if file is in cache
+
             if os.path.exists(cached_fontfile):
                 try:
+                    # woff/woff2 are not supported by matplotlib, so we convert them
+                    # to ttf. This is mostly useful to work with Bunny fonts API.
+                    if cached_fontfile.endswith(("woff", "woff2")):
+                        cached_fontfile: str = _decompress_woff_to_ttf(cached_fontfile)
+
                     font_prop: FontProperties = FontProperties(fname=cached_fontfile)
                     font_prop.get_name()  # triggers an error if invalid
                     return font_prop

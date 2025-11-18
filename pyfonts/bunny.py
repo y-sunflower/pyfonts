@@ -39,7 +39,7 @@ def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
     )
 
 
-def _get_fonturl_from_google(
+def _get_fonturl_from_bunny(
     family: str,
     weight: Optional[Union[int, str]],
     italic: Optional[bool],
@@ -47,7 +47,7 @@ def _get_fonturl_from_google(
     use_cache: bool,
 ):
     """
-    Construct the Google Fonts URL for a given font family and style parameters,
+    Construct the bunny Fonts URL for a given font family and style parameters,
     fetch the associated CSS, and extract the URL of the font file.
 
     Args:
@@ -69,7 +69,7 @@ def _get_fonturl_from_google(
         if cache_key in _MEMORY_CACHE:
             return _MEMORY_CACHE[cache_key]
 
-    url: str = f"https://fonts.googleapis.com/css2?family={family.replace(' ', '+')}"
+    url: str = f"https://fonts.bunny.net/css?family={family.replace(' ', '+')}"
     settings: dict = {}
 
     if italic is not None:
@@ -105,19 +105,19 @@ def _get_fonturl_from_google(
                 return font_url
 
 
-def load_google_font(
+def load_bunny_font(
     family: str,
     weight: Optional[Union[int, str]] = None,
     italic: Optional[bool] = None,
-    allowed_formats: List[str] = ["woff2", "woff", "ttf", "otf"],
+    allowed_formats: List[str] = ["woff", "ttf", "otf"],
     use_cache: bool = True,
     danger_not_verify_ssl: bool = False,
 ) -> FontProperties:
     """
-    Load a font from Google Fonts with specified styling options and return a font property
+    Load a font from bunny Fonts with specified styling options and return a font property
     object that you can then use in your matplotlib charts.
 
-    The easiest way to find the font you want is to browse [Google font](https://fonts.google.com/)
+    The easiest way to find the font you want is to browse [bunny font](https://fonts.bunny.com/)
     and then pass the font name to the `family` argument.
 
     Args:
@@ -125,7 +125,7 @@ def load_google_font(
             weight: Desired font weight (e.g., 400, 700) or one of 'thin', 'extra-light', 'light',
             'regular', 'medium', 'semi-bold', 'bold', 'extra-bold', 'black'. Default is `None`.
         italic: Whether to use the italic variant. Default is `None`.
-        allowed_formats: List of acceptable font file formats. Defaults to ["woff2", "woff", "ttf", "otf"].
+        allowed_formats: List of acceptable font file formats. Defaults to ["woff", "ttf", "otf"].
         use_cache: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
         danger_not_verify_ssl: Whether or not to to skip SSL certificate on
             `ssl.SSLCertVerificationError`. If `True`, it's a **security risk** (such as data breaches or
@@ -138,15 +138,15 @@ def load_google_font(
     Examples:
 
         ```python
-        from pyfonts import load_google_font
+        from pyfonts import load_bunny_font
 
-        font = load_google_font("Roboto") # default Roboto font
-        font = load_google_font("Roboto", weight="bold") # bold font
-        font = load_google_font("Roboto", italic=True) # italic font
-        font = load_google_font("Roboto", weight="bold", italic=True) # italic and bold
+        font = load_bunny_font("Roboto") # default Roboto font
+        font = load_bunny_font("Roboto", weight="bold") # bold font
+        font = load_bunny_font("Roboto", italic=True) # italic font
+        font = load_bunny_font("Roboto", weight="bold", italic=True) # italic and bold
         ```
     """
-    font_url = _get_fonturl_from_google(
+    font_url = _get_fonturl_from_bunny(
         family=family,
         weight=weight,
         italic=italic,
