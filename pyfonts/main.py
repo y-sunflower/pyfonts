@@ -54,7 +54,6 @@ def load_font(
         )
         ```
     """
-    print(f"font_url: {font_url}")
     if font_path is not None:
         warnings.warn(
             "`font_path` argument is deprecated and will be removed in a future version."

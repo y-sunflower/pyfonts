@@ -21,7 +21,7 @@ h4 {
 }
 
 .hero {
-  font-size: 1.4em;
+  font-size: 1.2em;
   height: 75vh;
   display: flex;
   align-items: center;
@@ -47,12 +47,13 @@ h4 {
 .pyfonts-name {
   display: inline-block;
   font-weight: 800;
-  font-size: 2em;
+  font-size: 1.2em;
   line-height: 1;
   letter-spacing: 0.02em;
   transform-origin: center;
-  color: #222;
+  color: #cb4e4f;
   position: relative;
+  text-decoration: underline;
 }
 
 /* trigger-class added on load */
