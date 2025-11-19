@@ -20,13 +20,13 @@ Most font files are stored on Github, but to pass a valid font url, you need to 
 So the url goes from:
 
 ```
-https://github.com/google/fonts/blob/main/ofl/amaranth/Amaranth-Bold.ttf
+https://github.com/y-sunflower/pyfonts/blob/main/tests/Amarante-Regular.ttf
 ```
 
 To:
 
 ```
-https://github.com/google/fonts/blob/main/ofl/amaranth/Amaranth-Bold.ttf?raw=true
+https://github.com/y-sunflower/pyfonts/blob/main/tests/Amarante-Regular.ttf?raw=true
 ```
 
 What's more, if you find a font on the Google font repo (for example, here: `https://github.com/google/fonts/`), it will probably be easier to use the [`load_google_font()`](load_google_font.md) function.
@@ -60,7 +60,7 @@ import matplotlib.pyplot as plt
 from pyfonts import load_font
 
 font = load_font(
-   "https://github.com/google/fonts/blob/main/ofl/amaranth/Amaranth-Bold.ttf?raw=true"
+   "https://github.com/y-sunflower/pyfonts/blob/main/tests/Amarante-Regular.ttf?raw=true"
 )
 
 fig, ax = plt.subplots()
@@ -84,7 +84,7 @@ font_1 = load_font(
    "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
 )
 font_2 = load_font(
-   "https://github.com/google/fonts/blob/main/ofl/amaranth/Amaranth-Bold.ttf?raw=true"
+   "https://github.com/y-sunflower/pyfonts/blob/main/tests/Amarante-Regular.ttf?raw=true"
 )
 
 fig, ax = plt.subplots()

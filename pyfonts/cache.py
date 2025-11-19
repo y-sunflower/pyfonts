@@ -5,7 +5,9 @@ import json
 from urllib.parse import urlparse
 
 _CACHE_FILE: str = os.path.join(
-    os.path.expanduser("~"), ".cache", ".pyfonts_google_cache.json"
+    os.path.expanduser("~"),
+    ".cache",
+    ".pyfonts_google_cache.json",
 )
 _MEMORY_CACHE: dict = {}
 
@@ -48,15 +50,16 @@ def clear_pyfonts_cache(verbose: bool = True) -> None:
       2. The Google Fonts URL cache
 
     Args:
-
-    - `verbose`: Whether or not to print a cache cleanup message. The default value is True.
+        `verbose`: Whether or not to print a cache cleanup message.
+            The default value is `True`.
 
     Examples:
 
-    ```python
-    from pyfonts import clear_pyfonts_cache
-    clear_pyfonts_cache()
-    ```
+        ```python
+        from pyfonts import clear_pyfonts_cache
+
+        clear_pyfonts_cache()
+        ```
     """
     cache_dir: str = _get_cache_dir()
 

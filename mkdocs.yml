@@ -34,6 +34,7 @@ nav:
   - API Reference:
       - reference/load_font.md
       - reference/load_google_font.md
+      - reference/load_bunny_font.md
       - reference/set_default_font.md
       - reference/preview_font.md
       - reference/cache.md
