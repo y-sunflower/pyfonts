@@ -47,7 +47,7 @@ fig, ax = plt.subplots()
 ax.text(x=0.2, y=0.5, s="Hey there!", size=30, font=font)
 ```
 
-![](https://raw.githubusercontent.com/y-sunflower/pyfonts/refs/heads/main/docs/img/quickstart-1.png)
+![](https://raw.githubusercontent.com/y-sunflower/pyfonts/refs/heads/main/docs/img/quickstart-2.png)
 
 [**See more examples**](https://y-sunflower.github.io/pyfonts/#quick-start)
 
