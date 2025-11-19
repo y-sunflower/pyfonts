@@ -8,6 +8,7 @@ sandbox.ipynb
 .pytest_cache/
 *cache*
 !cache.py
+!test_cache.py
 !cache.md
 sandbox.*
 uv.lock

@@ -54,3 +54,8 @@ def test_load_bunny_font(family, weight, italic, use_cache):
 
     assert isinstance(font, FontProperties)
     assert font.get_name() == family
+
+
+def test_weird_api_error():
+    with pytest.raises(ValueError, match="No font available for the request at URL*"):
+        load_bunny_font("Alice", italic=True)

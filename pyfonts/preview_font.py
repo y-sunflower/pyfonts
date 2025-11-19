@@ -1,16 +1,17 @@
 from pyfonts.main import load_font
 import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 
 
 def preview_font(
     font_url: str,
-):
+) -> Figure:
     """
     Preview a font. `font_url` is passed to [`load_font()`](load_font.md)
     """
     font = load_font(font_url)
 
-    plt.figure(figsize=(10, 5))
+    fig = plt.figure(figsize=(10, 5))
     plt.text(
         0.5,
         0.5,
@@ -40,3 +41,5 @@ def preview_font(
     )
 
     plt.axis("off")
+
+    return fig

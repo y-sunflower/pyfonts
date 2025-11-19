@@ -1,4 +1,4 @@
-## 1.1.4 (dev)
+## 1.2.0 (dev)
 
 - **NEW**: Add `load_bunny_font()` function to use fonts from Bunny Fonts ([issue #32](https://github.com/y-sunflower/pyfonts/issues/32), [PR #37](https://github.com/y-sunflower/pyfonts/pull/37))
 - **DOC**: New landing page ([PR #36](https://github.com/y-sunflower/pyfonts/pull/36))

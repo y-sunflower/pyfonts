@@ -91,9 +91,7 @@ The easiest (and recommended) way of using `pyfonts` is to **find the name** of 
       import matplotlib.pyplot as plt
       from pyfonts import load_font
 
-      font = load_font(
-         "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
-      )
+      font = load_font("https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true")
 
       fig, ax = plt.subplots()
       ax.text(
