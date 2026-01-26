@@ -1,8 +1,8 @@
-from .main import load_font, set_default_font
-from .google import load_google_font
-from .bunny import load_bunny_font
-from .cache import clear_pyfonts_cache
-from .preview_font import preview_font
+from pyfonts.main import load_font, set_default_font
+from pyfonts.google import load_google_font
+from pyfonts.bunny import load_bunny_font
+from pyfonts.cache import clear_pyfonts_cache
+from pyfonts.preview_font import preview_font
 
 from typing import Literal
 
