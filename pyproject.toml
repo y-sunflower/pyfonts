@@ -1,30 +1,49 @@
 [project]
 name = "pyfonts"
-description = "A simple and reproducible way of using fonts in matplotlib"
 version = "1.2.0"
-license = "MIT"
-license-files = ["LICENSE"]
-keywords = ["matplotlib", "font", "reproducibility", "google", "bunny"]
-authors = [
-  { name="Joseph Barbier", email="joseph.barbierdarnal@gmail.com" },
-]
+description = "A simple and reproducible way of using fonts in matplotlib"
 readme = "README.md"
 requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Joseph Barbier", email = "joseph.barbierdarnal@gmail.com" },
+]
+keywords = ["bunny", "font", "google", "matplotlib", "reproducibility"]
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
-    "Framework :: Matplotlib",
-    "Development Status :: 5 - Production/Stable"
+  "Development Status :: 5 - Production/Stable",
+  "Framework :: Matplotlib",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3"
 ]
 dependencies = [
   "matplotlib",
   "requests",
 ]
 
+[project.urls]
+Documentation = "https://y-sunflower.github.io/pyfonts/"
+Homepage = "https://y-sunflower.github.io/pyfonts/"
+Issues = "https://github.com/y-sunflower/pyfonts/issues"
+Repository = "https://github.com/y-sunflower/pyfonts"
+
+[dependency-groups]
+dev = [
+  "coverage>=7.9.1",
+  "genbadge[coverage]>=1.1.2",
+  "mkdocs-material>=9.6.9",
+  "mkdocs-matplotlib>=0.10.1",
+  "mkdocs-redirects>=1.2.2",
+  "mkdocstrings-python>=1.16.5",
+  "pre-commit>=4.2.0",
+  "pytest>=8.3.5",
+  "ty>=0.0.1a23",
+]
+
 [build-system]
 requires = [
-    "setuptools",
-    "setuptools-scm",
+  "setuptools",
+  "setuptools-scm",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -33,22 +52,3 @@ packages = ["pyfonts"]
 
 [tool.uv.sources]
 pyfonts = { workspace = true }
-
-[dependency-groups]
-dev = [
-    "pre-commit>=4.2.0",
-    "pytest>=8.3.5",
-    "mkdocs-material>=9.6.9",
-    "mkdocs-matplotlib>=0.10.1",
-    "mkdocstrings-python>=1.16.5",
-    "coverage>=7.9.1",
-    "genbadge[coverage]>=1.1.2",
-    "ty>=0.0.1a23",
-    "mkdocs-redirects>=1.2.2",
-]
-
-[project.urls]
-Homepage = "https://y-sunflower.github.io/pyfonts/"
-Issues = "https://github.com/y-sunflower/pyfonts/issues"
-Documentation = "https://y-sunflower.github.io/pyfonts/"
-Repository = "https://github.com/y-sunflower/pyfonts"
