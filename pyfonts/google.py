@@ -2,7 +2,7 @@ from typing import Optional, Union, List
 from matplotlib.font_manager import FontProperties
 
 from pyfonts import load_font
-from pyfonts.utils import _get_fonturl
+from pyfonts.utils import _attach_font_provider_metadata, _get_fonturl
 
 
 def load_google_font(
@@ -55,8 +55,17 @@ def load_google_font(
         use_cache=use_cache,
     )
 
-    return load_font(
+    font = load_font(
         font_url,
+        use_cache=use_cache,
+        danger_not_verify_ssl=danger_not_verify_ssl,
+    )
+
+    return _attach_font_provider_metadata(
+        font,
+        endpoint="https://fonts.googleapis.com/css2",
+        family=family,
+        allowed_formats=allowed_formats,
         use_cache=use_cache,
         danger_not_verify_ssl=danger_not_verify_ssl,
     )

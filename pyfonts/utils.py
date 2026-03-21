@@ -1,6 +1,6 @@
 import re
 import os
-from typing import Optional, Union
+from typing import Any, Optional, Union
 import requests
 
 from pyfonts.cache import (
@@ -10,6 +10,8 @@ from pyfonts.cache import (
     _MEMORY_CACHE,
     _CACHE_FILE,
 )
+
+_FONT_PROVIDER_METADATA_ATTR = "_pyfonts_provider_metadata"
 
 
 def _get_fonturl(
@@ -113,3 +115,30 @@ def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
         f"Invalid weight descriptor: {weight_str}. Valid options are: "
         "thin, extra-light, light, regular, medium, semi-bold, bold, extra-bold, black."
     )
+
+
+def _attach_font_provider_metadata(
+    font: Any,
+    *,
+    endpoint: str,
+    family: str,
+    allowed_formats: list[str],
+    use_cache: bool,
+    danger_not_verify_ssl: bool,
+):
+    setattr(
+        font,
+        _FONT_PROVIDER_METADATA_ATTR,
+        {
+            "endpoint": endpoint,
+            "family": family,
+            "allowed_formats": list(allowed_formats),
+            "use_cache": use_cache,
+            "danger_not_verify_ssl": danger_not_verify_ssl,
+        },
+    )
+    return font
+
+
+def _get_font_provider_metadata(font: Any) -> Optional[dict[str, Any]]:
+    return getattr(font, _FONT_PROVIDER_METADATA_ATTR, None)
