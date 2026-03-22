@@ -1,7 +1,9 @@
 import re
 import os
-from typing import Optional, Union
+from typing import Any, Optional, Union
 import requests
+
+from matplotlib.font_manager import FontProperties
 
 from pyfonts.cache import (
     _cache_key,
@@ -11,6 +13,8 @@ from pyfonts.cache import (
     _CACHE_FILE,
 )
 
+_FONT_PROVIDER_METADATA_ATTR = "_pyfonts_provider_metadata"
+
 
 def _get_fonturl(
     endpoint: str,
@@ -19,7 +23,7 @@ def _get_fonturl(
     italic: Optional[bool],
     allowed_formats: list,
     use_cache: bool,
-):
+) -> Optional[str]:
     """
     Construct the URL for a given endpoint, font family and style parameters,
     fetch the associated CSS, and extract the URL of the font file.
@@ -113,3 +117,30 @@ def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
         f"Invalid weight descriptor: {weight_str}. Valid options are: "
         "thin, extra-light, light, regular, medium, semi-bold, bold, extra-bold, black."
     )
+
+
+def _attach_font_provider_metadata(
+    font: FontProperties,
+    *,
+    endpoint: str,
+    family: str,
+    allowed_formats: list[str],
+    use_cache: bool,
+    danger_not_verify_ssl: bool,
+) -> FontProperties:
+    setattr(
+        font,
+        _FONT_PROVIDER_METADATA_ATTR,
+        {
+            "endpoint": endpoint,
+            "family": family,
+            "allowed_formats": list(allowed_formats),
+            "use_cache": use_cache,
+            "danger_not_verify_ssl": danger_not_verify_ssl,
+        },
+    )
+    return font
+
+
+def _get_font_provider_metadata(font: FontProperties) -> Optional[dict[str, Any]]:
+    return getattr(font, _FONT_PROVIDER_METADATA_ATTR, None)

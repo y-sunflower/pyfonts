@@ -39,6 +39,7 @@ git checkout -b my-feature
 
 ```bash
 uv sync --all-extras --dev
+uv run prek install -f
 uv pip install -e .
 ```
 

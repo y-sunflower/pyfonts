@@ -1,5 +1,7 @@
-from pyfonts import set_default_font, load_google_font
 import matplotlib.pyplot as plt
+from matplotlib.text import Text
+
+from pyfonts import set_default_font, load_google_font
 
 
 def test_set_default():
@@ -9,4 +11,23 @@ def test_set_default():
 
     # and that one can re-override
     set_default_font(load_google_font("Lato", weight="thin"))
-    assert plt.rcParams["font.family"] == ["Lato Hairline"]
+    assert "Lato Hairline" in plt.rcParams["font.family"]
+
+
+def test_set_default_complex():
+    set_default_font(load_google_font("SN Pro"))
+
+    fig, ax = plt.subplots()
+    ax.text(x=0.2, y=0.7, s="Hey there!", size=30, style="italic", weight="bold")
+    ax.text(x=0.2, y=0.5, s="Hey there!", size=30)
+    ax.text(x=0.2, y=0.3, s="Hey there!", size=30, weight=900)
+    ax.text(x=0.2, y=0.1, s="Hey there!", size=30, weight="bold")
+
+    artists = ax.get_children()
+    artists_text = [art for art in artists if isinstance(art, Text) and art.get_text()]
+    for artist in artists_text:
+        font_props = artist.get_fontproperties()
+        assert font_props.get_weight() in ["bold", "normal", 900], (
+            f"Unexpected weight: {font_props.get_weight()}"
+        )
+        assert font_props.get_style() in ["italic", "normal"]

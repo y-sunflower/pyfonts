@@ -2,7 +2,9 @@ from typing import Optional, Union, List
 from matplotlib.font_manager import FontProperties
 
 from pyfonts import load_font
-from pyfonts.utils import _get_fonturl
+from pyfonts.utils import _attach_font_provider_metadata, _get_fonturl
+
+_BUNNY_ENDPOINT = "https://fonts.bunny.net/css"
 
 
 def load_bunny_font(
@@ -49,7 +51,7 @@ def load_bunny_font(
         ```
     """
     font_url = _get_fonturl(
-        endpoint="https://fonts.bunny.net/css",
+        endpoint=_BUNNY_ENDPOINT,
         family=family,
         weight=weight,
         italic=italic,
@@ -57,8 +59,17 @@ def load_bunny_font(
         use_cache=use_cache,
     )
 
-    return load_font(
+    font = load_font(
         font_url,
+        use_cache=use_cache,
+        danger_not_verify_ssl=danger_not_verify_ssl,
+    )
+
+    return _attach_font_provider_metadata(
+        font,
+        endpoint=_BUNNY_ENDPOINT,
+        family=family,
+        allowed_formats=allowed_formats,
         use_cache=use_cache,
         danger_not_verify_ssl=danger_not_verify_ssl,
     )
