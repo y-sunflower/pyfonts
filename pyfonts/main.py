@@ -234,9 +234,11 @@ def _get_font_variant_files(font: FontProperties) -> set[str]:
                     use_cache=provider_metadata["use_cache"],
                     danger_not_verify_ssl=provider_metadata["danger_not_verify_ssl"],
                 )
-            except requests.exceptions.HTTPError:
-                continue
-            except ValueError:
+            except (
+                requests.exceptions.HTTPError,
+                ValueError,
+                RuntimeError,
+            ):
                 continue
             except requests.exceptions.RequestException:
                 return font_files
