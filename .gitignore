@@ -12,7 +12,7 @@ sandbox.ipynb
 !cache.md
 sandbox.*
 uv.lock
-scripts/release.sh
+release.sh
 sandbox/
 .venv
 .coverage
