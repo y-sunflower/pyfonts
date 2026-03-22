@@ -238,11 +238,9 @@ def _get_font_variant_files(font: FontProperties) -> set[str]:
             except requests.exceptions.HTTPError:  # ty: ignore[unresolved-attribute]
                 continue
             except (
-                requests.exceptions.RequestException
-            ):  # ty: ignore[unresolved-attribute]
+                requests.exceptions.RequestException  # ty: ignore[unresolved-attribute]
+            ):
                 return font_files
-            except Exception:
-                continue
 
             variant_file = variant_font.get_file()
             if variant_file is not None:

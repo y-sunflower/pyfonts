@@ -4,6 +4,8 @@ from matplotlib.font_manager import FontProperties
 from pyfonts import load_font
 from pyfonts.utils import _attach_font_provider_metadata, _get_fonturl
 
+_BUNNY_ENDPOINT = "https://fonts.bunny.net/css"
+
 
 def load_bunny_font(
     family: str,
@@ -49,7 +51,7 @@ def load_bunny_font(
         ```
     """
     font_url = _get_fonturl(
-        endpoint="https://fonts.bunny.net/css",
+        endpoint=_BUNNY_ENDPOINT,
         family=family,
         weight=weight,
         italic=italic,
@@ -65,7 +67,7 @@ def load_bunny_font(
 
     return _attach_font_provider_metadata(
         font,
-        endpoint="https://fonts.bunny.net/css",
+        endpoint=_BUNNY_ENDPOINT,
         family=family,
         allowed_formats=allowed_formats,
         use_cache=use_cache,

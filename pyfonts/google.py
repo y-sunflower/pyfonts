@@ -5,6 +5,9 @@ from pyfonts import load_font
 from pyfonts.utils import _attach_font_provider_metadata, _get_fonturl
 
 
+_GOOGLE_ENDPOINT = "https://fonts.googleapis.com/css2"
+
+
 def load_google_font(
     family: str,
     weight: Optional[Union[int, str]] = None,
@@ -47,7 +50,7 @@ def load_google_font(
         ```
     """
     font_url = _get_fonturl(
-        endpoint="https://fonts.googleapis.com/css2",
+        endpoint=_GOOGLE_ENDPOINT,
         family=family,
         italic=italic,
         weight=weight,
@@ -63,7 +66,7 @@ def load_google_font(
 
     return _attach_font_provider_metadata(
         font,
-        endpoint="https://fonts.googleapis.com/css2",
+        endpoint=_GOOGLE_ENDPOINT,
         family=family,
         allowed_formats=allowed_formats,
         use_cache=use_cache,
