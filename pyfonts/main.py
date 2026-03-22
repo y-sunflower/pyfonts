@@ -89,7 +89,6 @@ def load_font(
 
         if use_cache:
             # check if file is in cache
-
             if os.path.exists(cached_fontfile):
                 try:
                     # woff/woff2 are not supported by matplotlib, so we convert them

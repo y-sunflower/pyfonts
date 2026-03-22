@@ -3,6 +3,8 @@ import os
 from typing import Any, Optional, Union
 import requests
 
+from matplotlib.font_manager import FontProperties
+
 from pyfonts.cache import (
     _cache_key,
     _load_cache_from_disk,
@@ -21,7 +23,7 @@ def _get_fonturl(
     italic: Optional[bool],
     allowed_formats: list,
     use_cache: bool,
-):
+) -> Optional[str]:
     """
     Construct the URL for a given endpoint, font family and style parameters,
     fetch the associated CSS, and extract the URL of the font file.
@@ -118,14 +120,14 @@ def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
 
 
 def _attach_font_provider_metadata(
-    font: Any,
+    font: FontProperties,
     *,
     endpoint: str,
     family: str,
     allowed_formats: list[str],
     use_cache: bool,
     danger_not_verify_ssl: bool,
-):
+) -> FontProperties:
     setattr(
         font,
         _FONT_PROVIDER_METADATA_ATTR,
@@ -140,5 +142,5 @@ def _attach_font_provider_metadata(
     return font
 
 
-def _get_font_provider_metadata(font: Any) -> Optional[dict[str, Any]]:
+def _get_font_provider_metadata(font: FontProperties) -> Optional[dict[str, Any]]:
     return getattr(font, _FONT_PROVIDER_METADATA_ATTR, None)
