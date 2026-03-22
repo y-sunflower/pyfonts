@@ -236,6 +236,8 @@ def _get_font_variant_files(font: FontProperties) -> set[str]:
                 )
             except requests.exceptions.HTTPError:
                 continue
+            except ValueError:
+                continue
             except requests.exceptions.RequestException:
                 return font_files
 

@@ -26,7 +26,8 @@ def test_set_default_complex():
     artists = ax.get_children()
     artists_text = [art for art in artists if isinstance(art, Text) and art.get_text()]
     for artist in artists_text:
-        assert artist.get_weight() in ["bold", "normal", 900], (
-            f"Unexpected weight: {artist.get_weight()}"
+        font_props = artist.get_fontproperties()
+        assert font_props.get_weight() in ["bold", "normal", 900], (
+            f"Unexpected weight: {font_props.get_weight()}"
         )
-        assert artist.get_style() in ["italic", "normal"]
+        assert font_props.get_style() in ["italic", "normal"]
