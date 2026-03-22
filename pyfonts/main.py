@@ -234,11 +234,9 @@ def _get_font_variant_files(font: FontProperties) -> set[str]:
                     use_cache=provider_metadata["use_cache"],
                     danger_not_verify_ssl=provider_metadata["danger_not_verify_ssl"],
                 )
-            except requests.exceptions.HTTPError:  # ty: ignore[unresolved-attribute]
+            except requests.exceptions.HTTPError:
                 continue
-            except (
-                requests.exceptions.RequestException  # ty: ignore[unresolved-attribute]
-            ):
+            except requests.exceptions.RequestException:
                 return font_files
 
             variant_file = variant_font.get_file()
