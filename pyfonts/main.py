@@ -107,9 +107,7 @@ def load_font(
             response = urlopen(font_url)
         except HTTPError as e:
             if e.code == 404:
-                raise Exception(
-                    "404 error. The url passed does not exist: font file not found."
-                )
+                raise Exception("404 error. The url passed does not exist: font file not found.")
             else:
                 raise ValueError(f"An HTTPError has occurred. Code: {e.code}")
         except URLError as e:
@@ -120,9 +118,7 @@ def load_font(
                         "to man-in-the-middle attacks. Use only in trusted environments.",
                         UserWarning,
                     )
-                    response = urlopen(
-                        font_url, context=ssl._create_unverified_context()
-                    )
+                    response = urlopen(font_url, context=ssl._create_unverified_context())
                 else:
                     raise Exception(
                         "SSL certificate verification failed. "
