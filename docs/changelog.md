@@ -1,6 +1,6 @@
 ## Unreleased
 
-- **NEW**: Add `subset` parameter to `load_google_font()` and `load_bunny_font()` (defaults to `"latin"`). Multi-subset fonts (e.g., Chakra Petch) now return the correct character set instead of whichever subset appears first in the provider CSS.
+- **NEW** and **FIX**: Add `subset` parameter to `load_google_font()` and `load_bunny_font()` (defaults to `"latin"`). Multi-subset fonts (e.g., Chakra Petch) now return the correct character set instead of whichever subset appears first in the provider CSS.
 
 ## 1.3.0 (stable)
 
