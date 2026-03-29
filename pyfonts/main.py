@@ -228,6 +228,7 @@ def _get_font_variant_files(font: FontProperties) -> set[str]:
                     italic=italic,
                     allowed_formats=provider_metadata["allowed_formats"],
                     use_cache=provider_metadata["use_cache"],
+                    subset=provider_metadata["subset"],
                 )
                 variant_font = load_font(
                     font_url=font_url,

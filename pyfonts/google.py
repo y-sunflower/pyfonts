@@ -72,6 +72,7 @@ def load_google_font(
         endpoint=_GOOGLE_ENDPOINT,
         family=family,
         allowed_formats=allowed_formats,
+        subset=subset,
         use_cache=use_cache,
         danger_not_verify_ssl=danger_not_verify_ssl,
     )

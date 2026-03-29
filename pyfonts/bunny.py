@@ -73,6 +73,7 @@ def load_bunny_font(
         endpoint=_BUNNY_ENDPOINT,
         family=family,
         allowed_formats=allowed_formats,
+        subset=subset,
         use_cache=use_cache,
         danger_not_verify_ssl=danger_not_verify_ssl,
     )

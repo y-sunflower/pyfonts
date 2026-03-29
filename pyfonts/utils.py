@@ -148,6 +148,7 @@ def _attach_font_provider_metadata(
     endpoint: str,
     family: str,
     allowed_formats: list[str],
+    subset: str,
     use_cache: bool,
     danger_not_verify_ssl: bool,
 ) -> FontProperties:
@@ -158,6 +159,7 @@ def _attach_font_provider_metadata(
             "endpoint": endpoint,
             "family": family,
             "allowed_formats": list(allowed_formats),
+            "subset": subset,
             "use_cache": use_cache,
             "danger_not_verify_ssl": danger_not_verify_ssl,
         },
