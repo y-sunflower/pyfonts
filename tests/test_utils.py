@@ -1,4 +1,4 @@
-from pyfonts.utils import _map_weight_to_numeric, _parse_css_subsets
+from pyfonts.utils import _get_fonturl, _map_weight_to_numeric, _parse_css_subsets
 import pytest
 
 
@@ -24,6 +24,88 @@ def test_parse_css_subsets_no_comments():
     css = "@font-face { src: url(https://example.com/font.woff); }"
     result = _parse_css_subsets(css)
     assert result == {"": css}
+
+
+def test_get_fonturl_subset_found_without_matching_format_raises(monkeypatch):
+    css = (
+        "/* thai */\n"
+        "@font-face { src: url(https://example.com/font-thai.ttf); }\n"
+        "/* latin */\n"
+        "@font-face { src: url(https://example.com/font-latin.woff2); }\n"
+    )
+
+    class DummyResponse:
+        text = css
+
+        def raise_for_status(self):
+            return None
+
+    monkeypatch.setattr("pyfonts.utils.requests.get", lambda _: DummyResponse())
+
+    with pytest.raises(RuntimeError, match="No font files found in formats"):
+        _get_fonturl(
+            endpoint="https://example.com/css",
+            family="Example",
+            weight=400,
+            italic=False,
+            allowed_formats=["woff2"],
+            use_cache=False,
+            subset="thai",
+        )
+
+
+def test_get_fonturl_subset_missing_falls_back_to_full_css(monkeypatch):
+    css = (
+        "/* latin */\n"
+        "@font-face { src: url(https://example.com/font-latin.woff2); }\n"
+    )
+
+    class DummyResponse:
+        text = css
+
+        def raise_for_status(self):
+            return None
+
+    monkeypatch.setattr("pyfonts.utils.requests.get", lambda _: DummyResponse())
+
+    url = _get_fonturl(
+        endpoint="https://example.com/css",
+        family="Example",
+        weight=400,
+        italic=False,
+        allowed_formats=["woff2"],
+        use_cache=False,
+        subset="thai",
+    )
+
+    assert url == "https://example.com/font-latin.woff2"
+
+
+def test_get_fonturl_subset_lookup_is_case_insensitive(monkeypatch):
+    css = (
+        "/* latin */\n"
+        "@font-face { src: url(https://example.com/font-latin.woff2); }\n"
+    )
+
+    class DummyResponse:
+        text = css
+
+        def raise_for_status(self):
+            return None
+
+    monkeypatch.setattr("pyfonts.utils.requests.get", lambda _: DummyResponse())
+
+    url = _get_fonturl(
+        endpoint="https://example.com/css",
+        family="Example",
+        weight=400,
+        italic=False,
+        allowed_formats=["woff2"],
+        use_cache=False,
+        subset=" LATIN ",
+    )
+
+    assert url == "https://example.com/font-latin.woff2"
 
 
 def test_map_weight_to_numeric():
