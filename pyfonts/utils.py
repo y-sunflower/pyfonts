@@ -90,15 +90,19 @@ def _get_fonturl(
             " does not exist."
         )
 
-    subsets = _parse_css_subsets(css_text)
-    search_text = subsets.get(subset, css_text)
+    requested_subset = subset.strip().lower()
+    subsets = {
+        name.strip().lower(): block for name, block in _parse_css_subsets(css_text).items()
+    }
+    subset_found = requested_subset in subsets
+    search_text = subsets[requested_subset] if subset_found else css_text
 
     formats_pattern = "|".join(map(re.escape, allowed_formats))
     font_urls: list = re.findall(
         rf"url\((https://[^)]+\.({formats_pattern}))\)", search_text
     )
 
-    if not font_urls:
+    if not font_urls and not subset_found:
         font_urls = re.findall(
             rf"url\((https://[^)]+\.({formats_pattern}))\)", css_text
         )
