@@ -55,7 +55,9 @@ def test_get_fonturl_subset_found_without_matching_format_raises(monkeypatch):
 
 
 def test_get_fonturl_subset_missing_falls_back_to_full_css(monkeypatch):
-    css = "/* latin */\n" "@font-face { src: url(https://example.com/font-latin.woff2); }\n"
+    css = (
+        "/* latin */\n@font-face { src: url(https://example.com/font-latin.woff2); }\n"
+    )
 
     class DummyResponse:
         text = css
@@ -79,7 +81,9 @@ def test_get_fonturl_subset_missing_falls_back_to_full_css(monkeypatch):
 
 
 def test_get_fonturl_subset_lookup_is_case_insensitive(monkeypatch):
-    css = "/* latin */\n" "@font-face { src: url(https://example.com/font-latin.woff2); }\n"
+    css = (
+        "/* latin */\n@font-face { src: url(https://example.com/font-latin.woff2); }\n"
+    )
 
     class DummyResponse:
         text = css

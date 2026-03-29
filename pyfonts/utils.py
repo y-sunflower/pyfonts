@@ -91,18 +91,27 @@ def _get_fonturl(
         )
 
     requested_subset = subset.strip().lower()
-    subsets = {name.strip().lower(): block for name, block in _parse_css_subsets(css_text).items()}
+    subsets = {
+        name.strip().lower(): block
+        for name, block in _parse_css_subsets(css_text).items()
+    }
     subset_found = requested_subset in subsets
     search_text = subsets[requested_subset] if subset_found else css_text
 
     formats_pattern = "|".join(map(re.escape, allowed_formats))
-    font_urls: list = re.findall(rf"url\((https://[^)]+\.({formats_pattern}))\)", search_text)
+    font_urls: list = re.findall(
+        rf"url\((https://[^)]+\.({formats_pattern}))\)", search_text
+    )
 
     if not font_urls and not subset_found:
-        font_urls = re.findall(rf"url\((https://[^)]+\.({formats_pattern}))\)", css_text)
+        font_urls = re.findall(
+            rf"url\((https://[^)]+\.({formats_pattern}))\)", css_text
+        )
 
     if not font_urls:
-        raise RuntimeError(f"No font files found in formats {allowed_formats} for '{family}'")
+        raise RuntimeError(
+            f"No font files found in formats {allowed_formats} for '{family}'"
+        )
 
     for fmt in allowed_formats:
         for font_url, ext in font_urls:

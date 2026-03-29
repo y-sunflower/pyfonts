@@ -12,7 +12,9 @@ _CACHE_FILE: str = os.path.join(
 _MEMORY_CACHE: dict = {}
 
 
-def _cache_key(family: str, weight, italic, allowed_formats: list[str], subset: str) -> str:
+def _cache_key(
+    family: str, weight, italic, allowed_formats: list[str], subset: str
+) -> str:
     key_str: str = json.dumps(
         {
             "family": family,
