@@ -12,6 +12,7 @@ def load_bunny_font(
     weight: Optional[Union[int, str]] = None,
     italic: Optional[bool] = None,
     allowed_formats: List[str] = ["woff", "ttf", "otf"],
+    subset: str = "latin",
     use_cache: bool = True,
     danger_not_verify_ssl: bool = False,
 ) -> FontProperties:
@@ -30,6 +31,7 @@ def load_bunny_font(
         allowed_formats: List of acceptable font file formats. Defaults to ["woff", "ttf", "otf"].
             Note that for `woff2` fonts to work, you must have [brotli](https://github.com/google/brotli)
             installed.
+        subset: Unicode subset to select (e.g., "latin", "thai"). Defaults to "latin".
         use_cache: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
         danger_not_verify_ssl: Whether or not to to skip SSL certificate on
             `ssl.SSLCertVerificationError`. If `True`, it's a **security risk** (such as data breaches or
@@ -57,6 +59,7 @@ def load_bunny_font(
         italic=italic,
         allowed_formats=allowed_formats,
         use_cache=use_cache,
+        subset=subset,
     )
 
     font = load_font(

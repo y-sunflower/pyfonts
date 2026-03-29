@@ -56,6 +56,21 @@ def test_load_bunny_font(family, weight, italic, use_cache):
     assert font.get_name() == family
 
 
+@pytest.mark.parametrize("subset", ["latin", "thai"])
+def test_get_fonturl_subset(subset):
+    url = _get_fonturl(
+        endpoint="https://fonts.bunny.net/css",
+        family="Chakra Petch",
+        weight=400,
+        italic=False,
+        allowed_formats=["woff", "ttf", "otf"],
+        use_cache=False,
+        subset=subset,
+    )
+    assert isinstance(url, str)
+    assert subset in url
+
+
 def test_weird_api_error():
     with pytest.raises(ValueError, match="No font available for the request at URL*"):
         load_bunny_font("Alice", italic=True)

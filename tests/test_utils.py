@@ -1,5 +1,29 @@
-from pyfonts.utils import _map_weight_to_numeric
+from pyfonts.utils import _map_weight_to_numeric, _parse_css_subsets
 import pytest
+
+
+def test_parse_css_subsets_multi():
+    css = (
+        "/* thai */\n"
+        "@font-face { src: url(https://example.com/font-thai.woff); }\n"
+        "/* latin */\n"
+        "@font-face { src: url(https://example.com/font-latin.woff); }\n"
+        "/* latin-ext */\n"
+        "@font-face { src: url(https://example.com/font-latin-ext.woff); }\n"
+    )
+    result = _parse_css_subsets(css)
+    assert "thai" in result
+    assert "latin" in result
+    assert "latin-ext" in result
+    assert "font-thai" in result["thai"]
+    assert "font-latin.woff" in result["latin"]
+    assert "font-latin-ext" in result["latin-ext"]
+
+
+def test_parse_css_subsets_no_comments():
+    css = "@font-face { src: url(https://example.com/font.woff); }"
+    result = _parse_css_subsets(css)
+    assert result == {"": css}
 
 
 def test_map_weight_to_numeric():

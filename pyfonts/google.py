@@ -13,6 +13,7 @@ def load_google_font(
     weight: Optional[Union[int, str]] = None,
     italic: Optional[bool] = None,
     allowed_formats: List[str] = ["woff2", "woff", "ttf", "otf"],
+    subset: str = "latin",
     use_cache: bool = True,
     danger_not_verify_ssl: bool = False,
 ) -> FontProperties:
@@ -29,6 +30,7 @@ def load_google_font(
             'regular', 'medium', 'semi-bold', 'bold', 'extra-bold', 'black'. Default is `None`.
         italic: Whether to use the italic variant. Default is `None`.
         allowed_formats: List of acceptable font file formats. Defaults to ["woff2", "woff", "ttf", "otf"].
+        subset: Unicode subset to select (e.g., "latin", "thai"). Defaults to "latin".
         use_cache: Whether or not to cache fonts (to make pyfonts faster). Default to `True`.
         danger_not_verify_ssl: Whether or not to to skip SSL certificate on
             `ssl.SSLCertVerificationError`. If `True`, it's a **security risk** (such as data breaches or
@@ -56,6 +58,7 @@ def load_google_font(
         weight=weight,
         allowed_formats=allowed_formats,
         use_cache=use_cache,
+        subset=subset,
     )
 
     font = load_font(
