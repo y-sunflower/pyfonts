@@ -57,10 +57,7 @@ def test_load_google_font(family, weight, italic, use_cache):
 
 
 def test_get_fonturl_subset_nonexistent_falls_back(monkeypatch):
-    css = (
-        "/* latin */\n"
-        "@font-face { src: url(https://example.com/font-latin.woff2); }\n"
-    )
+    css = "/* latin */\n" "@font-face { src: url(https://example.com/font-latin.woff2); }\n"
 
     class DummyResponse:
         text = css
@@ -80,6 +77,4 @@ def test_get_fonturl_subset_nonexistent_falls_back(monkeypatch):
         subset="this-subset-does-not-exist",
     )
 
-    assert isinstance(url, str)
-    assert _is_url(url)
-    assert _is_valid_raw_url(url)
+    assert url == "https://example.com/font-latin.woff2"
