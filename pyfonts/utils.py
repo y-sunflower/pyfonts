@@ -24,8 +24,18 @@ def _parse_css_subsets(css_text: str) -> dict[str, str]:
     for i in range(1, len(parts), 2):
         name = parts[i]
         block = parts[i + 1] if i + 1 < len(parts) else ""
-        subsets[name] = block
+        subsets[name] = subsets.get(name, "") + block
     return subsets
+
+
+def _filter_by_style(css_text: str, italic: Optional[bool]) -> str:
+    """Keep only @font-face blocks matching the requested font-style."""
+    if italic is None:
+        return css_text
+    target = "italic" if italic else "normal"
+    blocks = re.split(r"(?=@font-face)", css_text)
+    matching = [b for b in blocks if re.search(rf"font-style:\s*{target}", b)]
+    return "".join(matching) if matching else css_text
 
 
 def _get_fonturl(
@@ -97,6 +107,7 @@ def _get_fonturl(
     }
     subset_found = requested_subset in subsets
     search_text = subsets[requested_subset] if subset_found else css_text
+    search_text = _filter_by_style(search_text, italic)
 
     formats_pattern = "|".join(map(re.escape, allowed_formats))
     font_urls: list = re.findall(

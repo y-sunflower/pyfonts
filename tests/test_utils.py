@@ -1,4 +1,9 @@
-from pyfonts.utils import _get_fonturl, _map_weight_to_numeric, _parse_css_subsets
+from pyfonts.utils import (
+    _get_fonturl,
+    _map_weight_to_numeric,
+    _parse_css_subsets,
+    _filter_by_style,
+)
 import pytest
 
 
@@ -24,6 +29,44 @@ def test_parse_css_subsets_no_comments():
     css = "@font-face { src: url(https://example.com/font.woff); }"
     result = _parse_css_subsets(css)
     assert result == {"": css}
+
+
+def test_parse_css_subsets_duplicate_names():
+    css = (
+        "/* latin */\n"
+        "@font-face { src: url(https://example.com/font-italic-400.woff); }\n"
+        "/* latin */\n"
+        "@font-face { src: url(https://example.com/font-normal-300.woff); }\n"
+    )
+    result = _parse_css_subsets(css)
+    assert "font-italic-400" in result["latin"]
+    assert "font-normal-300" in result["latin"]
+
+
+def test_filter_by_style_selects_italic():
+    css = (
+        "@font-face { font-style: italic; src: url(https://example.com/italic.woff); }\n"
+        "@font-face { font-style: normal; src: url(https://example.com/normal.woff); }\n"
+    )
+    result = _filter_by_style(css, italic=True)
+    assert "italic.woff" in result
+    assert "normal.woff" not in result
+
+
+def test_filter_by_style_returns_all_when_none():
+    css = (
+        "@font-face { font-style: italic; src: url(https://example.com/italic.woff); }\n"
+        "@font-face { font-style: normal; src: url(https://example.com/normal.woff); }\n"
+    )
+    result = _filter_by_style(css, italic=None)
+    assert "italic.woff" in result
+    assert "normal.woff" in result
+
+
+def test_filter_by_style_falls_back_when_no_match():
+    css = "@font-face { font-style: normal; src: url(https://example.com/normal.woff); }\n"
+    result = _filter_by_style(css, italic=True)
+    assert "normal.woff" in result
 
 
 def test_get_fonturl_subset_found_without_matching_format_raises(monkeypatch):
