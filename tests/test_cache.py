@@ -1,13 +1,19 @@
 import pytest
 import json
 from pyfonts import clear_pyfonts_cache, load_font, load_google_font
-from pyfonts.cache import _load_cache_from_disk
+from pyfonts.cache import _cache_key, _load_cache_from_disk
 import sys
 
 pytestmark = pytest.mark.skipif(
     sys.platform.startswith("win"),
     reason="Windows is just too weird",
 )
+
+
+def test_cache_key_differs_by_subset():
+    key_latin = _cache_key("Roboto", 400, False, ["woff"], "latin")
+    key_thai = _cache_key("Roboto", 400, False, ["woff"], "thai")
+    assert key_latin != key_thai
 
 
 def test_load_cache_when_file_missing(tmp_path, monkeypatch):

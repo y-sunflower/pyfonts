@@ -16,6 +16,28 @@ from pyfonts.cache import (
 _FONT_PROVIDER_METADATA_ATTR = "_pyfonts_provider_metadata"
 
 
+def _parse_css_subsets(css_text: str) -> dict[str, str]:
+    parts = re.split(r"/\*\s*(\S+)\s*\*/", css_text)
+    if len(parts) < 3:
+        return {"": css_text}
+    subsets: dict[str, str] = {}
+    for i in range(1, len(parts), 2):
+        name = parts[i]
+        block = parts[i + 1] if i + 1 < len(parts) else ""
+        subsets[name] = subsets.get(name, "") + block
+    return subsets
+
+
+def _filter_by_style(css_text: str, italic: Optional[bool]) -> str:
+    """Keep only @font-face blocks matching the requested font-style."""
+    if italic is None:
+        return css_text
+    target = "italic" if italic else "normal"
+    blocks = re.split(r"(?=@font-face)", css_text)
+    matching = [b for b in blocks if re.search(rf"font-style:\s*{target}", b)]
+    return "".join(matching) if matching else css_text
+
+
 def _get_fonturl(
     endpoint: str,
     family: str,
@@ -23,6 +45,7 @@ def _get_fonturl(
     italic: Optional[bool],
     allowed_formats: list,
     use_cache: bool,
+    subset: str = "latin",
 ) -> Optional[str]:
     """
     Construct the URL for a given endpoint, font family and style parameters,
@@ -35,6 +58,7 @@ def _get_fonturl(
         weight: Numeric font weight (e.g., 400, 700). If None, no weight axis is set.
         allowed_formats: List of acceptable font file extensions (e.g., ["woff2", "ttf"]).
         use_cache: Whether or not to cache fonts (to make pyfonts faster).
+        subset: Unicode subset to select from the CSS (e.g., "latin", "thai"). Defaults to "latin".
 
     Returns:
         Direct URL to the font file matching the requested style and format.
@@ -42,7 +66,7 @@ def _get_fonturl(
     if isinstance(weight, str):
         weight: int = _map_weight_to_numeric(weight)
 
-    cache_key: str = _cache_key(family, weight, italic, allowed_formats)
+    cache_key: str = _cache_key(family, weight, italic, allowed_formats, subset)
     if use_cache:
         if not _MEMORY_CACHE and os.path.exists(_CACHE_FILE):
             _MEMORY_CACHE.update(_load_cache_from_disk())
@@ -76,10 +100,25 @@ def _get_fonturl(
             " does not exist."
         )
 
+    requested_subset = subset.strip().lower()
+    subsets = {
+        name.strip().lower(): block
+        for name, block in _parse_css_subsets(css_text).items()
+    }
+    subset_found = requested_subset in subsets
+    search_text = subsets[requested_subset] if subset_found else css_text
+    search_text = _filter_by_style(search_text, italic)
+
     formats_pattern = "|".join(map(re.escape, allowed_formats))
     font_urls: list = re.findall(
-        rf"url\((https://[^)]+\.({formats_pattern}))\)", css_text
+        rf"url\((https://[^)]+\.({formats_pattern}))\)", search_text
     )
+
+    if not font_urls and not subset_found:
+        font_urls = re.findall(
+            rf"url\((https://[^)]+\.({formats_pattern}))\)", css_text
+        )
+
     if not font_urls:
         raise RuntimeError(
             f"No font files found in formats {allowed_formats} for '{family}'"
@@ -125,6 +164,7 @@ def _attach_font_provider_metadata(
     endpoint: str,
     family: str,
     allowed_formats: list[str],
+    subset: str,
     use_cache: bool,
     danger_not_verify_ssl: bool,
 ) -> FontProperties:
@@ -135,6 +175,7 @@ def _attach_font_provider_metadata(
             "endpoint": endpoint,
             "family": family,
             "allowed_formats": list(allowed_formats),
+            "subset": subset,
             "use_cache": use_cache,
             "danger_not_verify_ssl": danger_not_verify_ssl,
         },

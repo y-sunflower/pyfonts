@@ -54,3 +54,29 @@ def test_load_google_font(family, weight, italic, use_cache):
 
     assert isinstance(font, FontProperties)
     assert font.get_name() == family
+
+
+def test_get_fonturl_subset_nonexistent_falls_back(monkeypatch):
+    css = (
+        "/* latin */\n@font-face { src: url(https://example.com/font-latin.woff2); }\n"
+    )
+
+    class DummyResponse:
+        text = css
+
+        def raise_for_status(self):
+            return None
+
+    monkeypatch.setattr("pyfonts.utils.requests.get", lambda _: DummyResponse())
+
+    url = _get_fonturl(
+        endpoint="https://fonts.googleapis.com/css2",
+        family="Roboto",
+        weight=400,
+        italic=False,
+        allowed_formats=["woff2"],
+        use_cache=False,
+        subset="this-subset-does-not-exist",
+    )
+
+    assert url == "https://example.com/font-latin.woff2"
