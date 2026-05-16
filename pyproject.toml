@@ -31,7 +31,7 @@ Repository = "https://github.com/y-sunflower/pyfonts"
 dev = [
   "coverage>=7.9.1",
   "genbadge[coverage]>=1.1.2",
-  "mkdocs-material>=9.6.9",
+  "mkdocs-material==9.6.9",
   "mkdocs-matplotlib>=0.10.1",
   "mkdocs-redirects>=1.2.2",
   "mkdocstrings-python>=1.16.5",

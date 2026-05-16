@@ -190,6 +190,22 @@ ax.legend()
 ax.set_xlabel("x values", font=load_google_font("Roboto"), size=15)
 ```
 
+## Font subsetting
+
+You also change which subset of a font to use for fonts with multiple Unicode subsets:
+
+```py hl_lines="5"
+# mkdocs: render
+import matplotlib.pyplot as plt
+from pyfonts import load_bunny_font
+
+font = load_bunny_font("Chakra Petch", subset="thai")
+
+fig, ax = plt.subplots()
+ax.text(0.2, 0.5, "โดยที่ประชาชนแห่งส", size=30, font=font)
+
+```
+
 <br><br>
 
 <script>
