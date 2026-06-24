@@ -1,6 +1,7 @@
 import re
 import os
-from typing import Any, Optional, Union
+from dataclasses import dataclass
+from typing import Optional, Union
 import requests
 
 from matplotlib.font_manager import FontProperties
@@ -14,6 +15,16 @@ from pyfonts.cache import (
 )
 
 _FONT_PROVIDER_METADATA_ATTR = "_pyfonts_provider_metadata"
+
+
+@dataclass(frozen=True)
+class _FontProviderMetadata:
+    endpoint: str
+    family: str
+    allowed_formats: tuple[str, ...]
+    subset: str
+    use_cache: bool
+    danger_not_verify_ssl: bool
 
 
 def _parse_css_subsets(css_text: str) -> dict[str, str]:
@@ -171,17 +182,19 @@ def _attach_font_provider_metadata(
     setattr(
         font,
         _FONT_PROVIDER_METADATA_ATTR,
-        {
-            "endpoint": endpoint,
-            "family": family,
-            "allowed_formats": list(allowed_formats),
-            "subset": subset,
-            "use_cache": use_cache,
-            "danger_not_verify_ssl": danger_not_verify_ssl,
-        },
+        _FontProviderMetadata(
+            endpoint=endpoint,
+            family=family,
+            allowed_formats=tuple(allowed_formats),
+            subset=subset,
+            use_cache=use_cache,
+            danger_not_verify_ssl=danger_not_verify_ssl,
+        ),
     )
     return font
 
 
-def _get_font_provider_metadata(font: FontProperties) -> Optional[dict[str, Any]]:
+def _get_font_provider_metadata(
+    font: FontProperties,
+) -> Optional[_FontProviderMetadata]:
     return getattr(font, _FONT_PROVIDER_METADATA_ATTR, None)

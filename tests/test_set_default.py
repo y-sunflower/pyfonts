@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
 
 from pyfonts import set_default_font, load_google_font
@@ -31,3 +32,22 @@ def test_set_default_complex():
             f"Unexpected weight: {font_props.get_weight()}"
         )
         assert font_props.get_style() in ["italic", "normal"]
+
+
+def test_set_default_google_font_urbanist_with_matplotlib_311_hash(monkeypatch):
+    def matplotlib_311_hash(self):
+        # Matplotlib 3.11 hashes tuple(self.__dict__.values()). The list
+        # normalization keeps this regression portable on older Matplotlib.
+        values = tuple(
+            tuple(value) if isinstance(value, list) else value
+            for value in self.__dict__.values()
+        )
+        return hash(values)
+
+    monkeypatch.setattr(FontProperties, "__hash__", matplotlib_311_hash)
+
+    font = load_google_font("Urbanist")
+    hash(font)
+    set_default_font(font)
+
+    assert plt.rcParams["font.family"][0] == "Urbanist"
