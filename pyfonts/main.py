@@ -193,7 +193,7 @@ def _get_default_font_families(font: FontProperties) -> list[str]:
     if provider_metadata is None:
         return families
 
-    requested_family: str = provider_metadata["family"]
+    requested_family: str = provider_metadata.family
     if requested_family not in families:
         families.append(requested_family)
 
@@ -222,18 +222,18 @@ def _get_font_variant_files(font: FontProperties) -> set[str]:
         for weight in range(100, 1000, 100):
             try:
                 font_url = _get_fonturl(
-                    endpoint=provider_metadata["endpoint"],
-                    family=provider_metadata["family"],
+                    endpoint=provider_metadata.endpoint,
+                    family=provider_metadata.family,
                     weight=weight,
                     italic=italic,
-                    allowed_formats=provider_metadata["allowed_formats"],
-                    use_cache=provider_metadata["use_cache"],
-                    subset=provider_metadata["subset"],
+                    allowed_formats=list(provider_metadata.allowed_formats),
+                    use_cache=provider_metadata.use_cache,
+                    subset=provider_metadata.subset,
                 )
                 variant_font = load_font(
                     font_url=font_url,
-                    use_cache=provider_metadata["use_cache"],
-                    danger_not_verify_ssl=provider_metadata["danger_not_verify_ssl"],
+                    use_cache=provider_metadata.use_cache,
+                    danger_not_verify_ssl=provider_metadata.danger_not_verify_ssl,
                 )
             except (
                 requests.exceptions.HTTPError,
