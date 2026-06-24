@@ -1,6 +1,6 @@
 [project]
 name = "pyfonts"
-version = "1.4.0"
+version = "1.4.1"
 description = "A simple and reproducible way of using fonts in matplotlib"
 readme = "README.md"
 requires-python = ">=3.9"

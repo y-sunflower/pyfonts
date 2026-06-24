@@ -1,4 +1,8 @@
-## 1.4.0 (stable)
+## 1.4.1 (stable)
+
+- **FIX**: Matplotlib 3.11 introduced a "breaking change" (changed FontProperties.**hash** to hash all values in FontProperties.**dict**).
+
+## 1.4.0
 
 - **NEW** and **FIX**: Add `subset` parameter to `load_google_font()` and `load_bunny_font()` (defaults to `"latin"`). Multi-subset fonts (e.g., Chakra Petch) now return the correct character set instead of whichever subset appears first in the provider CSS. ([PR #42](https://github.com/y-sunflower/pyfonts/pull/42))
 
