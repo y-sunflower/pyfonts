@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from matplotlib.font_manager import FontProperties
 
-from pyfonts import load_font
+from pyfonts.main import load_font
 from pyfonts.utils import _attach_font_provider_metadata, _get_fonturl
 
 _BUNNY_ENDPOINT = "https://fonts.bunny.net/css"

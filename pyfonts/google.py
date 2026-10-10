@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from matplotlib.font_manager import FontProperties
 
-from pyfonts import load_font
+from pyfonts.main import load_font
 from pyfonts.utils import _attach_font_provider_metadata, _get_fonturl
 
 _GOOGLE_ENDPOINT = "https://fonts.googleapis.com/css2"

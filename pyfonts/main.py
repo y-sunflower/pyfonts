@@ -148,7 +148,8 @@ def load_font(
 
         return FontProperties(fname=cached_fontfile)
     else:
-        raise TypeError("You must provide a `font_url`.")
+        # Preserve the established exception type for callers relying on this API.
+        raise ValueError("You must provide a `font_url`.")
 
 
 def set_default_font(font: FontProperties) -> None:
