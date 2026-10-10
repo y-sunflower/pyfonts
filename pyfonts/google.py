@@ -1,18 +1,18 @@
-from typing import Optional, Union, List
+from __future__ import annotations
+
 from matplotlib.font_manager import FontProperties
 
 from pyfonts import load_font
 from pyfonts.utils import _attach_font_provider_metadata, _get_fonturl
-
 
 _GOOGLE_ENDPOINT = "https://fonts.googleapis.com/css2"
 
 
 def load_google_font(
     family: str,
-    weight: Optional[Union[int, str]] = None,
-    italic: Optional[bool] = None,
-    allowed_formats: List[str] = ["woff2", "woff", "ttf", "otf"],
+    weight: int | str | None = None,
+    italic: bool | None = None,
+    allowed_formats: list[str] | None = None,
     subset: str = "latin",
     use_cache: bool = True,
     danger_not_verify_ssl: bool = False,
@@ -51,6 +51,9 @@ def load_google_font(
         font = load_google_font("Roboto", weight="bold", italic=True) # italic and bold
         ```
     """
+    if allowed_formats is None:
+        allowed_formats = ["woff2", "woff", "ttf", "otf"]
+
     font_url = _get_fonturl(
         endpoint=_GOOGLE_ENDPOINT,
         family=family,

@@ -1,25 +1,30 @@
-from typing import Optional
+from __future__ import annotations
+
 import os
 import ssl
 import warnings
+from urllib.error import HTTPError, URLError
+from urllib.request import urlopen
 
 import requests
-from urllib.request import urlopen
-from urllib.error import URLError, HTTPError
-from matplotlib.font_manager import FontProperties, fontManager
 from matplotlib import rcParams
+from matplotlib.font_manager import FontProperties, fontManager
 
-from pyfonts.is_valid import _is_url, _is_valid_raw_url
 from pyfonts.cache import _create_cache_from_fontfile
 from pyfonts.decompress import _decompress_woff_to_ttf
+from pyfonts.is_valid import _is_url, _is_valid_raw_url
 from pyfonts.utils import _get_font_provider_metadata, _get_fonturl
 
 
+class _FontLoadError(RuntimeError):
+    """Raised when a remote font cannot be downloaded."""
+
+
 def load_font(
-    font_url: Optional[str] = None,
+    font_url: str | None = None,
     use_cache: bool = True,
     danger_not_verify_ssl: bool = False,
-    font_path: Optional[str] = None,
+    font_path: str | None = None,
 ) -> FontProperties:
     """
     Loads a matplotlib `FontProperties` object from a remote url or a local file,
@@ -85,29 +90,27 @@ def load_font(
                 """
             )
 
-        cached_fontfile, cache_dir = _create_cache_from_fontfile(font_url)
+        cached_fontfile, _cache_dir = _create_cache_from_fontfile(font_url)
 
-        if use_cache:
-            # check if file is in cache
-            if os.path.exists(cached_fontfile):
-                try:
-                    # woff/woff2 are not supported by matplotlib, so we convert them
-                    # to ttf. This is mostly useful to work with Bunny fonts API.
-                    if cached_fontfile.endswith(("woff", "woff2")):
-                        cached_fontfile: str = _decompress_woff_to_ttf(cached_fontfile)
+        if use_cache and os.path.exists(cached_fontfile):
+            try:
+                # woff/woff2 are not supported by matplotlib, so we convert them
+                # to ttf. This is mostly useful to work with Bunny fonts API.
+                if cached_fontfile.endswith(("woff", "woff2")):
+                    cached_fontfile = _decompress_woff_to_ttf(cached_fontfile)
 
-                    font_prop: FontProperties = FontProperties(fname=cached_fontfile)
-                    font_prop.get_name()  # triggers an error if invalid
-                    return font_prop
-                except Exception:
-                    # cached file is invalid, remove and proceed to download
-                    os.remove(cached_fontfile)
+                font_prop = FontProperties(fname=cached_fontfile)
+                font_prop.get_name()  # triggers an error if invalid
+                return font_prop
+            except (OSError, RuntimeError, ValueError):
+                # cached file is invalid, remove and proceed to download
+                os.remove(cached_fontfile)
 
         try:
             response = urlopen(font_url)
         except HTTPError as e:
             if e.code == 404:
-                raise Exception(
+                raise _FontLoadError(
                     "404 error. The url passed does not exist: font file not found."
                 )
             else:
@@ -124,14 +127,14 @@ def load_font(
                         font_url, context=ssl._create_unverified_context()
                     )
                 else:
-                    raise Exception(
+                    raise _FontLoadError(
                         "SSL certificate verification failed. "
                         "If you are behind a firewall or using a proxy, "
                         "try setting `danger_not_verify_ssl=True` to bypass verification."
                         "verification."
                     )
             else:
-                raise Exception(
+                raise _FontLoadError(
                     "Failed to load font. This may be due to a lack of internet connection "
                     "or an environment where local files are not accessible (Pyodide, etc)."
                 )
@@ -145,7 +148,7 @@ def load_font(
 
         return FontProperties(fname=cached_fontfile)
     else:
-        raise ValueError("You must provide a `font_url`.")
+        raise TypeError("You must provide a `font_url`.")
 
 
 def set_default_font(font: FontProperties) -> None:

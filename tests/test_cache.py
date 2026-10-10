@@ -1,8 +1,10 @@
-import pytest
 import json
+import sys
+
+import pytest
+
 from pyfonts import clear_pyfonts_cache, load_font, load_google_font
 from pyfonts.cache import _cache_key, _load_cache_from_disk
-import sys
 
 pytestmark = pytest.mark.skipif(
     sys.platform.startswith("win"),

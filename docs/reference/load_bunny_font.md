@@ -2,6 +2,7 @@
 # mkdocs: render
 # mkdocs: hidecode
 import matplotlib
+
 matplotlib.rcParams.update(matplotlib.rcParamsDefault)
 ```
 
@@ -22,16 +23,10 @@ matplotlib.rcParams.update(matplotlib.rcParamsDefault)
 import matplotlib.pyplot as plt
 from pyfonts import load_bunny_font
 
-font = load_bunny_font("Alumni Sans") # default Alice font
+font = load_bunny_font("Alumni Sans")  # default Alice font
 
 fig, ax = plt.subplots()
-ax.text(
-   x=0.2,
-   y=0.3,
-   s="Hey there!",
-   size=30,
-   font=font
-)
+ax.text(x=0.2, y=0.3, s="Hey there!", size=30, font=font)
 ```
 
 #### Custom font
@@ -41,16 +36,10 @@ ax.text(
 import matplotlib.pyplot as plt
 from pyfonts import load_bunny_font
 
-font = load_bunny_font("Alumni Sans", weight="bold", italic=True) # italic and bold
+font = load_bunny_font("Alumni Sans", weight="bold", italic=True)  # italic and bold
 
 fig, ax = plt.subplots()
-ax.text(
-   x=0.2,
-   y=0.3,
-   s="Hey there!",
-   size=30,
-   font=font
-)
+ax.text(x=0.2, y=0.3, s="Hey there!", size=30, font=font)
 ```
 
 #### Use multiple fonts
@@ -65,21 +54,9 @@ font_italic = load_bunny_font("Alumni Sans", italic=True)
 
 fig, ax = plt.subplots()
 
-ax.text(
-   x=0.2,
-   y=0.3,
-   s="Hey bold!",
-   size=30,
-   font=font_bold
-)
+ax.text(x=0.2, y=0.3, s="Hey bold!", size=30, font=font_bold)
 
-ax.text(
-   x=0.4,
-   y=0.6,
-   s="Hey italic!",
-   size=30,
-   font=font_italic
-)
+ax.text(x=0.4, y=0.6, s="Hey italic!", size=30, font=font_italic)
 ```
 
 #### Fancy font
@@ -94,11 +71,5 @@ from pyfonts import load_bunny_font
 font = load_bunny_font("Barrio")
 
 fig, ax = plt.subplots()
-ax.text(
-   x=0.1,
-   y=0.3,
-   s="What a weird font!",
-   size=30,
-   font=font
-)
+ax.text(x=0.1, y=0.3, s="What a weird font!", size=30, font=font)
 ```

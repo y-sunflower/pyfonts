@@ -1,5 +1,6 @@
 import pytest
-from pyfonts.is_valid import _is_valid_raw_url, _is_url
+
+from pyfonts.is_valid import _is_url, _is_valid_raw_url
 
 
 @pytest.mark.parametrize(

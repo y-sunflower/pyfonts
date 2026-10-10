@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 from matplotlib.text import Text
 
-from pyfonts import set_default_font, load_google_font
+from pyfonts import load_google_font, set_default_font
 
 
 def test_set_default():
@@ -18,7 +18,7 @@ def test_set_default():
 def test_set_default_complex():
     set_default_font(load_google_font("SN Pro"))
 
-    fig, ax = plt.subplots()
+    _, ax = plt.subplots()
     ax.text(x=0.2, y=0.7, s="Hey there!", size=30, style="italic", weight="bold")
     ax.text(x=0.2, y=0.5, s="Hey there!", size=30)
     ax.text(x=0.2, y=0.3, s="Hey there!", size=30, weight=900)

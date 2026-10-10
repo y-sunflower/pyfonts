@@ -1,8 +1,9 @@
 import pytest
 from matplotlib.font_manager import FontProperties
+
 from pyfonts import load_google_font
-from pyfonts.utils import _get_fonturl
 from pyfonts.is_valid import _is_url, _is_valid_raw_url
+from pyfonts.utils import _get_fonturl
 
 
 def test_errors():

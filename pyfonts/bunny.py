@@ -1,4 +1,5 @@
-from typing import Optional, Union, List
+from __future__ import annotations
+
 from matplotlib.font_manager import FontProperties
 
 from pyfonts import load_font
@@ -9,9 +10,9 @@ _BUNNY_ENDPOINT = "https://fonts.bunny.net/css"
 
 def load_bunny_font(
     family: str,
-    weight: Optional[Union[int, str]] = None,
-    italic: Optional[bool] = None,
-    allowed_formats: List[str] = ["woff", "ttf", "otf"],
+    weight: int | str | None = None,
+    italic: bool | None = None,
+    allowed_formats: list[str] | None = None,
     subset: str = "latin",
     use_cache: bool = True,
     danger_not_verify_ssl: bool = False,
@@ -52,6 +53,9 @@ def load_bunny_font(
         font = load_bunny_font("Roboto", weight="bold", italic=True) # italic and bold
         ```
     """
+    if allowed_formats is None:
+        allowed_formats = ["woff", "ttf", "otf"]
+
     font_url = _get_fonturl(
         endpoint=_BUNNY_ENDPOINT,
         family=family,

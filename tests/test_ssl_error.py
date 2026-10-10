@@ -1,6 +1,8 @@
-import pytest
 import ssl
 from urllib.error import URLError
+
+import pytest
+
 from pyfonts.main import load_font
 
 
@@ -42,4 +44,4 @@ def test_ssl_error_warning(monkeypatch):
             danger_not_verify_ssl=True,
             use_cache=False,
         )
-        assert font is not None
+    assert font is not None

@@ -1,17 +1,18 @@
-import re
-import os
-from dataclasses import dataclass
-from typing import Optional, Union
-import requests
+from __future__ import annotations
 
+import os
+import re
+from dataclasses import dataclass
+
+import requests
 from matplotlib.font_manager import FontProperties
 
 from pyfonts.cache import (
+    _CACHE_FILE,
+    _MEMORY_CACHE,
     _cache_key,
     _load_cache_from_disk,
     _save_cache_to_disk,
-    _MEMORY_CACHE,
-    _CACHE_FILE,
 )
 
 _FONT_PROVIDER_METADATA_ATTR = "_pyfonts_provider_metadata"
@@ -39,7 +40,7 @@ def _parse_css_subsets(css_text: str) -> dict[str, str]:
     return subsets
 
 
-def _filter_by_style(css_text: str, italic: Optional[bool]) -> str:
+def _filter_by_style(css_text: str, italic: bool | None) -> str:
     """Keep only @font-face blocks matching the requested font-style."""
     if italic is None:
         return css_text
@@ -52,12 +53,12 @@ def _filter_by_style(css_text: str, italic: Optional[bool]) -> str:
 def _get_fonturl(
     endpoint: str,
     family: str,
-    weight: Optional[Union[int, str]],
-    italic: Optional[bool],
+    weight: int | str | None,
+    italic: bool | None,
     allowed_formats: list,
     use_cache: bool,
     subset: str = "latin",
-) -> Optional[str]:
+) -> str | None:
     """
     Construct the URL for a given endpoint, font family and style parameters,
     fetch the associated CSS, and extract the URL of the font file.
@@ -144,7 +145,7 @@ def _get_fonturl(
                 return font_url
 
 
-def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
+def _map_weight_to_numeric(weight_str: str | float) -> int:
     weight_mapping: dict = {
         "thin": 100,
         "extra-light": 200,
@@ -156,7 +157,7 @@ def _map_weight_to_numeric(weight_str: Union[str, int, float]) -> int:
         "extra-bold": 800,
         "black": 900,
     }
-    if isinstance(weight_str, int) or isinstance(weight_str, float):
+    if isinstance(weight_str, (int, float)):
         return int(weight_str)
 
     weight_str: str = weight_str.lower()
@@ -196,5 +197,5 @@ def _attach_font_provider_metadata(
 
 def _get_font_provider_metadata(
     font: FontProperties,
-) -> Optional[_FontProviderMetadata]:
+) -> _FontProviderMetadata | None:
     return getattr(font, _FONT_PROVIDER_METADATA_ATTR, None)
