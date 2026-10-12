@@ -2,6 +2,7 @@
 # mkdocs: render
 # mkdocs: hidecode
 import matplotlib
+
 matplotlib.rcParams.update(matplotlib.rcParamsDefault)
 ```
 

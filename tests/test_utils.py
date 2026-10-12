@@ -1,10 +1,11 @@
+import pytest
+
 from pyfonts.utils import (
+    _filter_by_style,
     _get_fonturl,
     _map_weight_to_numeric,
     _parse_css_subsets,
-    _filter_by_style,
 )
-import pytest
 
 
 def test_parse_css_subsets_multi():

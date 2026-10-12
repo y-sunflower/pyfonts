@@ -2,6 +2,7 @@
 # mkdocs: render
 # mkdocs: hidecode
 import matplotlib
+
 matplotlib.rcParams.update(matplotlib.rcParamsDefault)
 ```
 
@@ -39,17 +40,11 @@ import matplotlib.pyplot as plt
 from pyfonts import load_font
 
 font = load_font(
-   "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
+    "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
 )
 
 fig, ax = plt.subplots()
-ax.text(
-   x=0.2,
-   y=0.3,
-   s="Hey there!",
-   size=30,
-   font=font
-)
+ax.text(x=0.2, y=0.3, s="Hey there!", size=30, font=font)
 ```
 
 #### Custom font
@@ -60,17 +55,11 @@ import matplotlib.pyplot as plt
 from pyfonts import load_font
 
 font = load_font(
-   "https://github.com/y-sunflower/pyfonts/blob/main/tests/Amarante-Regular.ttf?raw=true"
+    "https://github.com/y-sunflower/pyfonts/blob/main/tests/Amarante-Regular.ttf?raw=true"
 )
 
 fig, ax = plt.subplots()
-ax.text(
-   x=0.2,
-   y=0.3,
-   s="Hey there!",
-   size=30,
-   font=font
-)
+ax.text(x=0.2, y=0.3, s="Hey there!", size=30, font=font)
 ```
 
 #### Use multiple fonts
@@ -81,27 +70,15 @@ import matplotlib.pyplot as plt
 from pyfonts import load_font
 
 font_1 = load_font(
-   "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
+    "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf?raw=true"
 )
 font_2 = load_font(
-   "https://github.com/y-sunflower/pyfonts/blob/main/tests/Amarante-Regular.ttf?raw=true"
+    "https://github.com/y-sunflower/pyfonts/blob/main/tests/Amarante-Regular.ttf?raw=true"
 )
 
 fig, ax = plt.subplots()
 
-ax.text(
-   x=0.2,
-   y=0.3,
-   s="Hey there!",
-   size=30,
-   font=font_1
-)
+ax.text(x=0.2, y=0.3, s="Hey there!", size=30, font=font_1)
 
-ax.text(
-   x=0.4,
-   y=0.6,
-   s="Hello world",
-   size=30,
-   font=font_2
-)
+ax.text(x=0.4, y=0.6, s="Hello world", size=30, font=font_2)
 ```

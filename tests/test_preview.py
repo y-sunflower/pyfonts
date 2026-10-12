@@ -1,5 +1,6 @@
-from pyfonts import preview_font
 from matplotlib.figure import Figure
+
+from pyfonts import preview_font
 
 
 def test_preview_font():

@@ -1,7 +1,7 @@
-import shutil
 import hashlib
-import os
 import json
+import os
+import shutil
 from urllib.parse import urlparse
 
 _CACHE_FILE: str = os.path.join(
@@ -34,7 +34,7 @@ def _load_cache_from_disk() -> dict:
     try:
         with open(_CACHE_FILE, "r") as f:
             return json.load(f)
-    except Exception:
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
         return {}
 
 
@@ -42,7 +42,7 @@ def _save_cache_to_disk() -> None:
     try:
         with open(_CACHE_FILE, "w") as f:
             json.dump(_MEMORY_CACHE, f)
-    except Exception:
+    except OSError:
         pass
 
 
@@ -76,7 +76,6 @@ def clear_pyfonts_cache(verbose: bool = True) -> None:
             print("No font cache directory found. Nothing to clean.")
 
     # clear the Google Fonts URL cache
-    global _MEMORY_CACHE
     _MEMORY_CACHE.clear()
 
     if os.path.exists(_CACHE_FILE):
@@ -84,7 +83,7 @@ def clear_pyfonts_cache(verbose: bool = True) -> None:
             os.remove(_CACHE_FILE)
             if verbose:
                 print(f"Google Fonts URL cache cleared: {_CACHE_FILE}")
-        except Exception as e:
+        except OSError as e:
             if verbose:
                 print(f"Failed to remove Google Fonts cache file: {e}")
     else:

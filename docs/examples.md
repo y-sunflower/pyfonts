@@ -2,6 +2,7 @@
 # mkdocs: render
 # mkdocs: hidecode
 import matplotlib
+
 matplotlib.rcParams.update(matplotlib.rcParamsDefault)
 ```
 
@@ -18,11 +19,11 @@ font = load_google_font("Fascinate Inline")
 
 fig, ax = plt.subplots()
 ax.text(
-   x=0.2,
-   y=0.5,
-   s="Hey there!",
-   size=30,
-   font=font # We pass it to the `font` argument
+    x=0.2,
+    y=0.5,
+    s="Hey there!",
+    size=30,
+    font=font,  # We pass it to the `font` argument
 )
 ```
 
@@ -36,29 +37,17 @@ import matplotlib.pyplot as plt
 from pyfonts import load_google_font
 
 font_bold = load_google_font("Roboto", weight="bold")
-font_regular = load_google_font("Roboto", weight="regular") # Default
+font_regular = load_google_font("Roboto", weight="regular")  # Default
 font_light = load_google_font("Roboto", weight="thin")
 
 fig, ax = plt.subplots()
-text_params = dict(x=0.2,size=30,)
-ax.text(
-   y=0.7,
-   s="Bold font",
-   font=font_bold,
-   **text_params
+text_params = dict(
+    x=0.2,
+    size=30,
 )
-ax.text(
-   y=0.5,
-   s="Regular font",
-   font=font_regular,
-   **text_params
-)
-ax.text(
-   y=0.3,
-   s="Light font",
-   font=font_light,
-   **text_params
-)
+ax.text(y=0.7, s="Bold font", font=font_bold, **text_params)
+ax.text(y=0.5, s="Regular font", font=font_regular, **text_params)
+ax.text(y=0.3, s="Light font", font=font_light, **text_params)
 ```
 
 > Note that **not all fonts** have different weight and can be set to bold/light.
@@ -75,13 +64,7 @@ from pyfonts import load_google_font
 font = load_google_font("Roboto", italic=True)
 
 fig, ax = plt.subplots()
-ax.text(
-   x=0.2,
-   y=0.5,
-   s="This text is in italic",
-   size=30,
-   font=font
-)
+ax.text(x=0.2, y=0.5, s="This text is in italic", size=30, font=font)
 ```
 
 > Note that **not all fonts** can be set to italic.
@@ -95,7 +78,7 @@ If you also want to change the default font used for e.g. the axis labels, legen
 from pyfonts import set_default_font, load_google_font
 
 font = load_google_font("Fascinate Inline")
-set_default_font(font) # Sets font for all text
+set_default_font(font)  # Sets font for all text
 
 fig, ax = plt.subplots()
 
@@ -104,8 +87,8 @@ y = [x**2 for x in x]
 
 # x+y tick labels, legend entries, title etc.
 # will all be in Fascinate Inline
-ax.plot(x, y, "-o", label='y = x²')
-ax.set_title('Simple Line Chart')
+ax.plot(x, y, "-o", label="y = x²")
+ax.set_title("Simple Line Chart")
 ax.text(x=0, y=5, s="Hello world", size=20)
 ax.legend()
 

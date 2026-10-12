@@ -1,5 +1,5 @@
 import re
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import parse_qs, urlparse
 
 
 def _is_url(s: str) -> bool:
@@ -39,23 +39,11 @@ def _is_valid_raw_url(url: str) -> bool:
     parsed = urlparse(url)
 
     # Non-GitHub URLs are accepted if the extension is valid
-    if (
+    return (
         "github.com" not in parsed.netloc
         and "raw.githubusercontent.com" not in parsed.netloc
-    ):
-        return True
-
-    # GitHub raw subdomain
-    if "raw.githubusercontent.com" in parsed.netloc:
-        return True
-
-    # Check for /raw/ in path (e.g., /user/repo/raw/branch/file)
-    if "/raw/" in parsed.path:
-        return True
-
-    # Check for ?raw=true in query string, even with extra params
-    query_params: dict[str, list[str]] = parse_qs(parsed.query)
-    if "raw" in query_params and query_params["raw"] == ["true"]:
-        return True
-
-    return False
+    ) or (
+        "raw.githubusercontent.com" in parsed.netloc
+        or "/raw/" in parsed.path
+        or parse_qs(parsed.query).get("raw") == ["true"]
+    )

@@ -1,6 +1,7 @@
-from pyfonts.main import load_font
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
+
+from pyfonts.main import load_font
 
 
 def preview_font(

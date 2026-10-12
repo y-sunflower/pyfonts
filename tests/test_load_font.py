@@ -1,6 +1,6 @@
-import pytest
 import re
 
+import pytest
 from matplotlib.font_manager import FontProperties
 
 import pyfonts
@@ -34,12 +34,12 @@ def test_load_font_invalid_input():
     with pytest.raises(FileNotFoundError, match=f"Font file not found: '{font_url}'."):
         load_font(font_url)
 
-    with pytest.warns(UserWarning):
-        font_url = "/path/to/font.ttf"
-        with pytest.raises(
-            FileNotFoundError, match=f"Font file not found: '{font_url}'."
-        ):
-            load_font(font_path=font_url)
+    font_url = "/path/to/font.ttf"
+    with (
+        pytest.warns(UserWarning),
+        pytest.raises(FileNotFoundError, match=f"Font file not found: '{font_url}'."),
+    ):
+        load_font(font_path=font_url)
 
     font_url = (
         "https://github.com/y-sunflower/pyfonts/blob/main/tests/Ultra-Regular.ttf"
