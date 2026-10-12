@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import List, Optional, Union
+
 from matplotlib.font_manager import FontProperties
 
 from pyfonts.main import load_font
@@ -10,9 +12,9 @@ _GOOGLE_ENDPOINT = "https://fonts.googleapis.com/css2"
 
 def load_google_font(
     family: str,
-    weight: int | str | None = None,
-    italic: bool | None = None,
-    allowed_formats: list[str] | None = None,
+    weight: Optional[Union[int, str]] = None,
+    italic: Optional[bool] = None,
+    allowed_formats: Optional[List[str]] = None,
     subset: str = "latin",
     use_cache: bool = True,
     danger_not_verify_ssl: bool = False,

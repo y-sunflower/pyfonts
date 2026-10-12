@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import ssl
 import warnings
+from typing import Optional
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
 
@@ -21,10 +22,10 @@ class _FontLoadError(RuntimeError):
 
 
 def load_font(
-    font_url: str | None = None,
+    font_url: Optional[str] = None,
     use_cache: bool = True,
     danger_not_verify_ssl: bool = False,
-    font_path: str | None = None,
+    font_path: Optional[str] = None,
 ) -> FontProperties:
     """
     Loads a matplotlib `FontProperties` object from a remote url or a local file,
