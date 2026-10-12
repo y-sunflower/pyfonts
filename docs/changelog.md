@@ -1,4 +1,8 @@
-## 1.4.1 (stable)
+## 1.4.2 (stable)
+
+- **NEW**: Add Python 3.15 support
+
+## 1.4.1
 
 - **FIX**: Matplotlib 3.11 introduced a "breaking change" (changed FontProperties.**hash** to hash all values in FontProperties.**dict**).
 

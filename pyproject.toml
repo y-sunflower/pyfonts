@@ -1,6 +1,6 @@
 [project]
 name = "pyfonts"
-version = "1.4.1"
+version = "1.4.2"
 description = "A simple and reproducible way of using fonts in matplotlib"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -10,12 +10,7 @@ authors = [
   { name = "Joseph Barbier", email = "joseph@ysunflower.com" },
 ]
 keywords = ["bunny", "font", "google", "matplotlib", "reproducibility"]
-classifiers = [
-  "Development Status :: 5 - Production/Stable",
-  "Framework :: Matplotlib",
-  "Operating System :: OS Independent",
-  "Programming Language :: Python :: 3"
-]
+classifiers = ["Development Status :: 5 - Production/Stable", "Framework :: Matplotlib", "Operating System :: OS Independent", "Programming Language :: Python :: 3"]
 dependencies = [
   "matplotlib",
   "requests",
