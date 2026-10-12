@@ -35,7 +35,7 @@ In short, `pyfonts`:
 
 [![PyPI Downloads](https://static.pepy.tech/badge/pyfonts)](https://pepy.tech/projects/pyfonts)
 ![Coverage](https://raw.githubusercontent.com/y-sunflower/pyfonts/refs/heads/main/coverage-badge.svg)
-![Python Versions](https://img.shields.io/badge/Python-3.9–3.14-blue)
+![Python Versions](https://img.shields.io/badge/Python-3.10–3.14-blue)
 
 ```bash
 pip install pyfonts
